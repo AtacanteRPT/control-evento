@@ -37,5 +37,20 @@ module.exports = {
             .catch(err => {
                 res.serverError(err)
             });
+    },
+    actualizarMilitante: function (req, res) {
+
+        console.log(req.body)
+        var militante={
+            nombre : req.body.nombre,
+            cedula : req.body.cedula,
+            celular:req.body.celular,
+            direccion : req.body.direccion
+        }
+        Militante.update(req.body.id,militante)
+        .then(datoMilitantes => res.redirect('/'))
+            .catch(err => {
+                res.serverError(err)
+            });
     }
 };

@@ -9,16 +9,7 @@
                 </div>
 
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Actualizar Información</h4>
-      <p></p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Guardar</a>
-    </div>
-  </div>
+ 
 
                 <!--<div class="row">
                     <a href="#!">
@@ -111,7 +102,48 @@
 
 
 
+ <!-- Modal Structure -->
+ <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Actualizar Información</h4>
+      
+      <div class="row">
+        <form method="POST" action="/controlador/actualizarMilitante" class="col s12">
+        <input id="inputId" type="number" name="id" hidden=true class="validate">
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="inputNombre" type="text" name="nombre" class="validate">
+              <label for="icon_prefix">Nombre</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">card_membership</i>
+              <input id="inputCedula" type="tel" name="cedula" class="validate">
+              <label for="icon_telephone">Cedula</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">phone</i>
+                <input id="inputCelular" type="number" name="celular" class="validate">
+                <label for="icon_prefix">Celular</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix">location_on</i>
+                <input id="inputDireccion" type="tel" name="direccion" class="validate">
+                <label for="icon_telephone">Dirección</label>
+              </div>
+          </div>
 
+          <!-- <input type="submit" value="Actualizar"> -->
+          <button class="btn waves-effect waves-light" type="submit" name="action">Actualizar
+                <i class="material-icons right">send</i>
+              </button>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+  </div>
 
 <script>
     $('.button-collapse').sideNav();
@@ -119,9 +151,7 @@
     $('.collapsible').collapsible();
 
     $('select').material_select();
-    $(document).ready(function(){
-    
-  });
+
 
     var auxMilitantes = <%- JSON.stringify(militantes) %>
 
@@ -132,7 +162,7 @@
             listaMilitantes.forEach(function (militante, index) {
                 $('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
                     '<td>' + (index + 1) + '</td>' +
-                    '<td>' + militante.paterno + ' ' + militante.materno + ' ' + militante.nombre + '</td>' +
+                    '<td>' + militante.nombre + '</td>' +
                     '<td>' + militante.cargo + '</td>' +
                     '<td>' + militante.cedula + '</td>' +
                     '<td>' + militante.celular + '</td>' +
@@ -151,8 +181,18 @@
         
         function actualizarMilitante(idMilitante){
             console.log(idMilitante)
+
+            var militante = auxMilitantes.filter(dato=>dato.id ==idMilitante)
             var linea = $('#tr'+idMilitante).find('td')
             console.log('LINEA:',linea)
+
+            $('#inputId').val(idMilitante)
+
+            $('#inputNombre').val(militante[0].nombre)
+            $('#inputCedula').val(militante[0].cedula)
+            $('#inputCelular').val(militante[0].celular)
+            $('#inputDireccion').val(militante[0].direccion)
+
             $('.modal').openModal();
         };
         
