@@ -7,11 +7,11 @@
 
 module.exports = {
 
-    index: function(req, res) {
+    index: function (req, res) {
         console.log('Entra por lo menos a inex de controlador')
 
         Militante.find().then(datoMilitantes => {
-            console.log(datoMilitantes)
+            // console.log(datoMilitantes)
             res.view('pages/homepage', {
                 militantes: datoMilitantes
             })
@@ -19,5 +19,23 @@ module.exports = {
         }).catch(err => {
             res.serverError(err)
         });
+    },
+    buscarMilitante: function (req, res) {
+        var nombreCedula= req.body.nombre;
+        console.log('NOMBRE a BUSCAR:', nombreCedula)
+        Militante.find({
+            or: [
+                {
+                    nombre: { contains: nombreCedula }
+                },
+                {
+                    cedula:{ contains:nombreCedula}
+                }
+                
+            ]
+        }).then(datoMilitantes => res.json(datoMilitantes))
+            .catch(err => {
+                res.serverError(err)
+            });
     }
 };
