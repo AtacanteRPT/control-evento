@@ -7,26 +7,27 @@
 
 module.exports = {
 
-  attributes: {
+    attributes: {
 
-      paterno: { type: 'string' },
-      materno: { type: 'string' },
-      nombre: { type: 'string', required: true, },
+        paterno: { type: 'string' },
+        materno: { type: 'string' },
+        nombre: { type: 'string', required: true, },
 
-      cedula: { type: 'string' },
-      celular: { type: 'string' },
-      telefono: { type: 'string' },
-      institucion: {
-          type: 'string'
-      },
-      direccion: {
-          type: 'string'
-      },
-      // usuario:{
-      //   collection:'usuario',
-      //   via:'idMilitante'
-      // }
-
-  },
+        cedula: { type: 'string' },
+        celular: { type: 'string' },
+        telefono: { type: 'string' },
+        cargo: { type: 'string' },
+        asistencia: { type: 'boolean' },
+        institucion: {
+            type: 'string'
+        },
+        direccion: {
+            type: 'string'
+        },
+        // usuario:{
+        //   collection:'usuario',
+        //   via:'idMilitante'
+        // }
+    },
 
 };
