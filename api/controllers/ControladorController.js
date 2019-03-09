@@ -52,5 +52,9 @@ module.exports = {
             .catch(err => {
                 res.serverError(err)
             });
+    },
+    actMilitante:function(req,res){
+        sails.log('BODY:',req.body);
+        res.send('oso') 
     }
 };

@@ -24,6 +24,20 @@ module.exports = {
         direccion: {
             type: 'string'
         },
+        fechaNac: {
+            type: 'ref',
+            columnType: 'date',
+            required:false
+        },
+        remplazo: {
+            type: 'string'
+        },
+        ci_remplazo: {
+            type: 'string'
+        },
+        hora: {
+            type: 'string'
+        },
         // usuario:{
         //   collection:'usuario',
         //   via:'idMilitante'

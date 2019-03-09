@@ -9,7 +9,7 @@ var async = require('async')
 var files = [];
 
 
-files.push('./invitados.csv');
+files.push('./invitados2.csv');
 
 async.eachSeries(files, function(file, callback) {
 

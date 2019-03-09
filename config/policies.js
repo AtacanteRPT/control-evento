@@ -18,5 +18,12 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  ControladorController: {
+    '*': ['AccesoDelegado']
+  },
+
+  PublicoController: {
+    '*': true
+  }
 
 };
