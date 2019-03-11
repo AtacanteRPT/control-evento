@@ -93,6 +93,17 @@
                         <i class="material-icons prefix">date_range</i>
                         <input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
                     </div>
+                    <div class="input-field col s6">
+                        <!-- <i class="material-icons prefix">people</i> -->
+
+                        <select class="browser-default" id="inputSexo" name="inputSexo">
+                            <option value="1" disabled selected> Selecionar Genero</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="O">Otro</option>
+                        </select>
+                        <!-- <label>Seleccionar Genero</label> -->
+                    </div>
                     <div class="input-field col s8">
                             <i class="material-icons prefix">person_add</i>
                             <input id="inputRem" type="text" name="remplazo" class="validate">
@@ -129,6 +140,8 @@
     $('.collapsible').collapsible();
 
     $('select').material_select();
+    //$('select').formSelect();
+
     // $('.datepicker').datepicker();
 
     var auxMilitantes = <%- JSON.stringify(militantes) %>
@@ -175,14 +188,16 @@
 
         var militante = auxMilitantes.filter(dato => dato.id == idMilitante)
         var linea = $('#tr' + idMilitante).find('td')
-        console.log('LINEA:', militante)
-
+        
         $('#inputId').val(idMilitante)
         var auxFecha = new Date(militante[0].fechaNac)
-
-
+        
+        
         var dia = parseInt(auxFecha.getDate()) +1;
         var mes = parseInt(auxFecha.getMonth()) +1;
+        
+        console.log('Console Log:', militante)
+
         if(dia<10){
             dia='0'+dia;
         }
@@ -193,6 +208,12 @@
         $('#inputCedula').val(militante[0].cedula)
         $('#inputCelular').val(militante[0].celular)
         $('#inputDireccion').val(militante[0].direccion)
+       $('#inputSexo').val(militante[0].sexo)
+       //$("#inputSexo option[value='O']").attr('selected', 'selected');
+
+       // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
+
+        //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
         $('#inputFechaNac').val(auxFecha.getFullYear()+'-'+mes+'-'+dia)
         console.log('FECHA:',auxFecha.getFullYear()+'-'+auxFecha.getMonth()+'-'+auxFecha.getDate())
         
@@ -232,6 +253,8 @@
         $('#carga').show()
         var form = $('#formActualizar').serialize()
         var id = $('#formActualizar').serializeArray()
+
+        form+='&sexo='+$('#inputSexo').val();
         console.log(form)
         $.ajax({
             type: "PATCH",

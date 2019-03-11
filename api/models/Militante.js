@@ -38,6 +38,9 @@ module.exports = {
         hora: {
             type: 'string'
         },
+        sexo: {
+            type: 'string'
+        },
         // usuario:{
         //   collection:'usuario',
         //   via:'idMilitante'
