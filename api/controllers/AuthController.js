@@ -14,7 +14,7 @@ module.exports = {
                 //     message: info.message,
                 //     user
                 // });
-                console.log("no logueado : ", info.message)
+                // console.log("no logueado : ", info.message)
 
                 return res.redirect("/");
             }

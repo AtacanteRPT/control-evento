@@ -93,11 +93,16 @@
                         <i class="material-icons prefix">date_range</i>
                         <input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
                     </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">email</i>
+                        <input id="inputEmail" type="email" name="email" class="validate">
+                    </div>
                     <div class="input-field col s6">
                         <!-- <i class="material-icons prefix">people</i> -->
 
                         <select class="browser-default" id="inputSexo" name="inputSexo">
-                            <option value="1" disabled selected> Selecionar Genero</option>
+                            <option value="" selected> Selecionar Genero</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="O">Otro</option>
@@ -120,6 +125,10 @@
                 <!-- <input type="submit" value="Actualizar"> -->
                 <button id="btnActualizar" class="btn waves-effect waves-light" type="button">Actualizar
                     <i class="material-icons right">send</i>
+                </button>
+
+                <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
+                    <i class="material-icons right">local_printshop</i>
                 </button>
             </form>
         </div>
@@ -208,7 +217,8 @@
         $('#inputCedula').val(militante[0].cedula)
         $('#inputCelular').val(militante[0].celular)
         $('#inputDireccion').val(militante[0].direccion)
-       $('#inputSexo').val(militante[0].sexo)
+        $('#inputSexo').val(militante[0].sexo)
+        $('#inputEmail').val(militante[0].email)
        //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
        // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');

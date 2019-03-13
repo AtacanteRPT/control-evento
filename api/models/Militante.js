@@ -21,6 +21,9 @@ module.exports = {
         institucion: {
             type: 'string'
         },
+        email: {
+            type: 'string'
+        },
         direccion: {
             type: 'string'
         },
