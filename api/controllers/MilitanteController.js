@@ -6,7 +6,11 @@
  */
 
 module.exports = {
-  
 
+    nuevo: function (req, res) {
+        Militante.create(req.body).exec(function(datoMilitatne){
+            res.redirect('/controlador/index')
+        });
+    }
 };
 
