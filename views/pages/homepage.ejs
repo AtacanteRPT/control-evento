@@ -484,9 +484,11 @@
             var doc = new jsPDF();
             // You can use html:
             //doc.autoTable({html: '#my-table'});
-            doc.setFontType("normal");
+           // doc.setFontType("normal");
             doc.setFontSize(14);
-            doc.text("ASISTENCIAS", 35, 25);
+            //doc.text("ASISTENCIAS", 35, 25);
+            doc.text(7, 10, "ASISTENCIAS");
+
             // Or JavaScript:
             var listaAsistentesImprimir =[];
             var listaFaltantesImprimir =[];
@@ -525,9 +527,9 @@
         var doc = new jsPDF();
         // You can use html:
         //doc.autoTable({html: '#my-table'});
-        doc.setFontType("normal");
+        //doc.setFontType("normal");
         doc.setFontSize(14);
-        doc.text("FALTANTES", 35, 25);
+        doc.text(7, 10, "FALTANTES");
         // Or JavaScript:
         var listaAsistentesImprimir =[];
         var listaFaltantesImprimir =[];
