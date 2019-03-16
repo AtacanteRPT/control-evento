@@ -2,6 +2,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.33/vfs_fonts.js"></script>
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="https://unpkg.com/jspdf-autotable@3.0.13/dist/jspdf.plugin.autotable.js"></script>
 
 <main>
     <div class="row">
@@ -389,9 +390,7 @@
         });
 
     })
-
-    
-     
+ 
     $('#btnImprimir').click(function () {
 
         // create the window before the callback
@@ -480,6 +479,88 @@
 
        
     })
+
+    $('#btnReporte').click(function(){
+            var doc = new jsPDF();
+            // You can use html:
+            //doc.autoTable({html: '#my-table'});
+            doc.setFontType("normal");
+            doc.setFontSize(14);
+            doc.text("ASISTENCIAS", 35, 25);
+            // Or JavaScript:
+            var listaAsistentesImprimir =[];
+            var listaFaltantesImprimir =[];
+
+            auxMilitantes.forEach(function(dato){
+                
+                if(dato.asistencia==true){
+                    var vector = [dato.nombre,dato.cargo,dato.institucion,dato.cedula,dato.celular,dato.hora.split(' ')[0]]
+                    listaAsistentesImprimir.push(vector);
+                }
+            },this)
+   
+
+        console.log('ASISTENTES',listaAsistentesImprimir)
+
+            doc.autoTable({
+                head: [['Nombre', 'Cargo', 'Institución','Cedula','Celular','Hora']],
+                body: listaAsistentesImprimir,
+                columnStyles: {
+                    0: {columnWidth: 45},
+                    1: {columnWidth: 35},
+                    2: {columnWidth: 45},
+                    3: {columnWidth: 20},
+                    4: {columnWidth: 15},
+                    5: {columnWidth: 20},
+    
+                    // etc
+                  },
+            });
+            
+            //doc.save('table.pdf');
+            window.open(URL.createObjectURL(doc.output("blob")))
+
+    });
+    $('#btnReporteF').click(function(){
+        var doc = new jsPDF();
+        // You can use html:
+        //doc.autoTable({html: '#my-table'});
+        doc.setFontType("normal");
+        doc.setFontSize(14);
+        doc.text("FALTANTES", 35, 25);
+        // Or JavaScript:
+        var listaAsistentesImprimir =[];
+        var listaFaltantesImprimir =[];
+
+        auxMilitantes.forEach(function(dato){
+            
+            if(dato.asistencia!=true){
+                var vector = [dato.nombre,dato.cargo,dato.institucion,dato.cedula,dato.celular]
+                listaFaltantesImprimir.push(vector);
+            }
+        },this)
+
+
+    console.log('FALTAS',listaFaltantesImprimir)
+
+        doc.autoTable({
+            head: [['Nombre', 'Cargo', 'Institución','Cedula','Celular']],
+            body: listaFaltantesImprimir,
+            columnStyles: {
+                0: {columnWidth: 50},
+                1: {columnWidth: 40},
+                2: {columnWidth: 50},
+                3: {columnWidth: 20},
+                4: {columnWidth: 20},
+
+                // etc
+              },
+            theme: 'grid'
+        });
+        window.open(URL.createObjectURL(doc.output("blob")))
+
+        //doc.save('table.pdf');
+});
 </script>
 <script type="text/javascript" src="/dependencies/sails.io.js"></script>
 
