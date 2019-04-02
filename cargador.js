@@ -9,7 +9,7 @@ var async = require('async')
 var files = [];
 
 
-files.push('./invitados2.csv');
+files.push('./1_reunion_lista.csv');
 
 async.eachSeries(files, function(file, callback) {
 
@@ -21,7 +21,7 @@ async.eachSeries(files, function(file, callback) {
         encoding: 'utf8'
     });
     var options = {
-        delimiter: ',', // optional
+        delimiter: ';', // optional
         quote: '"' // optional
     };
 

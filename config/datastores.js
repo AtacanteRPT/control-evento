@@ -49,7 +49,7 @@ module.exports.datastores = {
          *                                                                          *
          ***************************************************************************/
         adapter: 'sails-mysql',
-        url: 'mysql://root:vps-carlos-mas@militantesmasipsp.com:3306/control_asistencia',
+        url: 'mysql://admin2:admin2123456@localhost/1_reunion_mas',
         // adapter: 'sails-mongo',
         // url: 'mongodb://oso:123456@localhost/control_asistencia'
     },
