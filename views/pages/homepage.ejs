@@ -537,7 +537,7 @@
         auxMilitantes.forEach(function(dato){
             
             if(dato.asistencia!=true){
-                var vector = [dato.nombre,dato.cargo,dato.institucion,dato.cedula,dato.celular]
+                var vector = [dato.nombre,dato.remplazo,dato.cargo,dato.institucion,dato.cedula,dato.celular]
                 listaFaltantesImprimir.push(vector);
             }
         },this)
@@ -546,14 +546,15 @@
     console.log('FALTAS',listaFaltantesImprimir)
 
         doc.autoTable({
-            head: [['Nombre', 'Cargo', 'Institución','Cedula','Celular']],
+            head: [['Nombre','Remplazo', 'Cargo', 'Institución','Cedula','Celular']],
             body: listaFaltantesImprimir,
             columnStyles: {
                 0: {columnWidth: 50},
                 1: {columnWidth: 40},
-                2: {columnWidth: 50},
-                3: {columnWidth: 20},
+                2: {columnWidth: 40},
+                3: {columnWidth: 50},
                 4: {columnWidth: 20},
+      
 
                 // etc
               },

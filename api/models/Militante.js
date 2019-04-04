@@ -21,8 +21,8 @@ module.exports = {
         institucion: {
             type: 'string'
         },
-categoria:{
-type:'string'},
+// categoria:{
+// type:'string'},
         email: {
             type: 'string'
         },
