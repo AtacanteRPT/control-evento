@@ -57,7 +57,7 @@
 </head>
 
 <body>
-
+    <%if(req.req.isAuthenticated()){%>
     <ul id="slide-out" class="side-nav fixed z-depth-2">
         <li class="center no-padding">
             <div class="indigo darken-2 white-text" style="height: 180px;">
@@ -101,6 +101,8 @@
                 </div>
             </li>
 
+           
+            <%if (req.user.rol == 'admin'){%>
             <li id="dash_categories">
                 <div id="dash_categories_header"  class="collapsible-header waves-effect"><b>Reportes</b></div>
                 <div id="dash_categories_body" class="collapsible-body">
@@ -124,6 +126,8 @@
                     </ul>
                 </div>
             </li>
+            <%}%>
+            <%}%>
             <!--
             <li id="dash_brands">
                 <div id="dash_brands_header" class="collapsible-header waves-effect"><b>Brands</b></div>
