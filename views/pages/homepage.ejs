@@ -13,7 +13,7 @@
                         <b>Controlar Asistencia</b>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
@@ -23,26 +23,87 @@
                             </div>
                         </div>
                     </div>
+                </div> -->
+                <div class="row">
+                    <form method="POST" action="/militante/nuevo" class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="inputNombre" type="text" name="nombre" class="validate">
+                                <label for="inputNombre">Nombre</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">card_membership</i>
+                                <input id="inputCedula" type="tel" name="cedula" class="validate">
+                                <label for="inputCedula">Cedula</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="inputCelular" type="number" name="celular" class="validate">
+                                <label for="inputCelular">Celular</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">work</i>
+                                <input id="inputCargo" type="text" name="cargo" >
+                                <label for="inputCargo">Cargo</label>
+        
+                            </div>
+                            
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">location_on</i>
+                                <input id="inputDireccion" type="tel" name="direccion" class="validate">
+                                <label for="inputDireccion">Dirección</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">date_range</i>
+                                <input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
+                            </div>
+        
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">email</i>
+                                <input id="inputEmail" type="email" name="email" class="validate">
+                            </div>
+                            <div class="input-field col s6">
+                                <!-- <i class="material-icons prefix">people</i> -->
+        
+                                <select class="browser-default" id="inputSexo" name="inputSexo">
+                                    <option value="" selected> Selecionar Genero</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                                <!-- <label>Seleccionar Genero</label> -->
+                            </div>
+        
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">location_city</i>
+                                <input id="inputInstitucion" type="text" name="institucion" >
+                                <label for="inputInstitucion">Institución</label>
+        
+                            </div>
+<!--                         
+                            <div class="input-field col s8">
+                                <i class="material-icons prefix">person_add</i>
+                                <input id="inputRem" type="text" name="remplazo" class="validate">
+                                <label for="inputRem">Remplazo</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <i class="material-icons prefix">card_membership</i>
+                                <input id="inputCedulaRem" type="text" name="ci_remplazo" class="validate">
+                                <label for="inputCedulaRem">Cedula remplazo</label>
+                            </div> -->
+                        </div>
+        
+                        <!-- <input type="submit" value="Actualizar"> -->
+                        <input class="btn" type="submit" value="ADICIONAR">
+        
+                        <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
+                            <i class="material-icons right">local_printshop</i>
+                        </button>
+                    </form>
                 </div>
 
 
-
-                <table class="striped" id="tablaMilitantes">
-                    <thead>
-                        <tr>
-                            <th>Nro</th>
-                            <th>Nombre</th>
-                            <th>Cargo</th>
-                            <th>Cedula</th>
-                            <th>Celular</th>
-                            <th>Asistencia</th>
-                            <th>Editar</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
         </div>
 
@@ -138,11 +199,6 @@
                         <input id="inputCedulaRem" type="text" name="ci_remplazo" class="validate">
                         <label for="inputCedulaRem">Cedula remplazo</label>
                     </div>
-                    
-                
-
-
-
                 </div>
 
                 <!-- <input type="submit" value="Actualizar"> -->
@@ -175,6 +231,13 @@
                         <input id="inputNombre" type="text" name="nombre" class="validate">
                         <label for="inputNombre">Nombre</label>
                     </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">work</i>
+                        <input id="inputCargo" type="text" name="cargo" >
+                        <label for="inputCargo">Cargo</label>
+
+                    </div>
+
                     <div class="input-field col s6">
                         <i class="material-icons prefix">card_membership</i>
                         <input id="inputCedula" type="tel" name="cedula" class="validate">
@@ -218,13 +281,7 @@
                         <label for="inputInstitucion">Institución</label>
 
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">work</i>
-                        <input id="inputCargo" type="text" name="cargo" >
-                        <label for="inputCargo">Cargo</label>
-
-                    </div>
-
+                   
 
                 </div>
 

@@ -4,11 +4,17 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+var moment = require('moment-timezone');
 
 module.exports = {
 
     nuevo: function (req, res) {
-        Militante.create(req.body).exec(function (datoMilitatne) {
+
+        var auxMilitante = req.body;
+        auxMilitante.hora = moment().tz("America/La_Paz").format();
+        auxMilitante.asistencia=true;
+        Militante.create(auxMilitante).exec(function (datoMilitatne) {
+            
             res.redirect('/controlador/index')
         });
     },
@@ -95,10 +101,10 @@ module.exports = {
         //Array of objects representing heading rows (very top)
         const heading = [
             [
-                { value: 'OSO', style: styles.cellTitulo },
+                { value: 'Reporte Asistentes', style: styles.cellTitulo },
                 { value: 'GATO', style: styles.headerDark },
                 { value: 'PERRO', style: styles.headerDark }],
-            [{ value: 'Esto es una celda junta', style: styles.cellTitulo }] // <-- It can be only values
+            [{ value: 'Programa línea para los ampliados de las circunscripciones', style: styles.cellTitulo }] // <-- It can be only values
         ];
         var count =0;
         //Here you specify the export structure
@@ -138,6 +144,12 @@ module.exports = {
                 headerStyle: styles.cellTitulo,
                 cellStyle: styles.cellNormal, // <- Cell style
                 width: 100 // <- width in pixels
+            },
+            cargo: {
+                displayName: 'Cargo',
+                headerStyle: styles.cellTitulo,
+                cellStyle: styles.cellNormal, // <- Cell style
+                width: 150 // <- width in pixels
             }
         }
 
