@@ -20,7 +20,11 @@ module.exports = {
     },
     reporte: async function (req, res) {
         const excel = require('node-excel-export');
+        var datoMilitantes = await Militante.find();
 
+        console.log('MILITANTES',datoMilitantes)
+        var dataset = [];
+        dataset = datoMilitantes
         // You can define styles as json object
         const styles = {
             headerDark: {
@@ -104,8 +108,10 @@ module.exports = {
                 { value: 'Reporte Asistentes', style: styles.cellTitulo },
                 { value: 'GATO', style: styles.headerDark },
                 { value: 'PERRO', style: styles.headerDark }],
-            [{ value: 'Programa línea para los ampliados de las circunscripciones', style: styles.cellTitulo }] // <-- It can be only values
+            [{ value: 'AMPLIADO POR CIRCUNSCRIPCIÓN LA PAZ "Circunscripción 9"', style: styles.cellTitulo }] ,// <-- It can be only values
+            [{ value: 'Total asistentes : '+ datoMilitantes.length, style: styles.cellTitulo }]
         ];
+        
         var count =0;
         //Here you specify the export structure
         const specification = {
@@ -131,7 +137,7 @@ module.exports = {
                 width: 220 // <- width in pixels
             },
             cedula: {
-                displayName: 'Celula',
+                displayName: 'Cedula',
                 headerStyle: styles.cellTitulo,
                 cellStyle:styles.cellNormal,
                 // cellFormat: function (value, row) { // <- Renderer function, you can access also any row.property
@@ -145,8 +151,8 @@ module.exports = {
                 cellStyle: styles.cellNormal, // <- Cell style
                 width: 100 // <- width in pixels
             },
-            cargo: {
-                displayName: 'Cargo',
+            institucion: {
+                displayName: 'Institución',
                 headerStyle: styles.cellTitulo,
                 cellStyle: styles.cellNormal, // <- Cell style
                 width: 150 // <- width in pixels
@@ -158,8 +164,7 @@ module.exports = {
         // dataset contains more fields as the report is build based on the
         // specification provided above. But you should have all the fields
         // that are listed in the report specification
-        var datoMilitantes = await Militante.find();
-        const dataset = datoMilitantes;
+     
         // const dataset = [
         //     { customer_name: 'IBM', status_id: 1, note: 'some note', misc: 'not shown' },
         //     { customer_name: 'HP', status_id: 0, note: 'some note' },
@@ -170,8 +175,9 @@ module.exports = {
         // The merges are independent of the data.
         // A merge will overwrite all data _not_ in the top-left cell.
         const merges = [
-            { start: { row: 1, column: 1 }, end: { row: 1, column: 4 } },
-            { start: { row: 2, column: 1 }, end: { row: 2, column: 4 } },
+            { start: { row: 1, column: 1 }, end: { row: 1, column: 5 } },
+            { start: { row: 2, column: 1 }, end: { row: 2, column: 5 } },
+            { start: { row: 3, column: 1 }, end: { row: 3, column: 5 } },
             // { start: { row: 2, column: 6 }, end: { row: 2, column: 10 } }
         ]
 
