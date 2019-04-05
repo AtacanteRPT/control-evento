@@ -19,14 +19,12 @@ module.exports.policies = {
 
   // '*': true,
   ControladorController: {
-    '*': ['AccesoDelegado','AdminDelegado']
+    '*': ['DelegadoPolitica']
   },
-  MilitanteController: {
-    '*': ['AccesoDelegado','AdminDelegado'],
-    // 'reporte':['AdminDelegado']
-  },
-
-
+  // MilitanteController: {
+  //   '*': ['AdminDelegado'],
+  //   // 'reporte':['AdminDelegado']
+  // },
   PublicoController: {
     '*': true
   }
