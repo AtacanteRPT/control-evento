@@ -190,41 +190,41 @@
 
         <div class="row">
             <form id="formActualizar" class="col s12">
-                <input id="inputId" type="number" name="id" hidden=true class="validate">
+                <input id="inputId2" type="number" name="id" hidden=true class="validate">
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="inputNombre" type="text" name="nombre" class="validate">
-                        <label for="inputNombre">Nombre</label>
+                        <input id="inputNombre2" type="text" name="nombre" class="validate">
+                        <label for="inputNombre2">Nombre</label>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">card_membership</i>
-                        <input id="inputCedula" type="tel" name="cedula" class="validate">
-                        <label for="inputCedula">Cedula</label>
+                        <input id="inputCedula2" type="tel" name="cedula" class="validate">
+                        <label for="inputCedula2">Cedula</label>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">phone</i>
-                        <input id="inputCelular" type="number" name="celular" class="validate">
-                        <label for="inputCelular">Celular</label>
+                        <input id="inputCelular2" type="number" name="celular" class="validate">
+                        <label for="inputCelular2">Celular</label>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">location_on</i>
-                        <input id="inputDireccion" type="tel" name="direccion" class="validate">
-                        <label for="inputDireccion">Dirección</label>
+                        <input id="inputDireccion2" type="tel" name="direccion" class="validate">
+                        <label for="inputDireccion2">Dirección</label>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">date_range</i>
-                        <input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
+                        <input id="inputFechaNac2" type="date" name="fechaNac" class="datepicker">
                     </div>
 
                     <div class="input-field col s6">
                         <i class="material-icons prefix">email</i>
-                        <input id="inputEmail" type="email" name="email" class="validate">
+                        <input id="inputEmail2" type="email" name="email" class="validate">
                     </div>
                     <div class="input-field col s6">
                         <!-- <i class="material-icons prefix">people</i> -->
 
-                        <select class="browser-default" id="inputSexo" name="inputSexo">
+                        <select class="browser-default" id="inputSexo2" name="inputSexo">
                             <option value="" selected> Selecionar Genero</option>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
@@ -235,25 +235,25 @@
 
                     <div class="input-field col s6">
                         <i class="material-icons prefix">location_city</i>
-                        <input id="inputInstitucion" type="text" name="institucion" >
-                        <label for="inputInstitucion">Institución</label>
+                        <input id="inputInstitucion2" type="text" name="institucion" >
+                        <label for="inputInstitucion2">Institución</label>
 
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">work</i>
-                        <input id="inputCargo" type="text" name="cargo" >
-                        <label for="inputCargo">Cargo</label>
+                        <input id="inputCargo2" type="text" name="cargo" >
+                        <label for="inputCargo2">Cargo</label>
 
                     </div>
                     <div class="input-field col s8">
                         <i class="material-icons prefix">person_add</i>
-                        <input id="inputRem" type="text" name="remplazo" class="validate">
-                        <label for="inputRem">Remplazo</label>
+                        <input id="inputRem2" type="text" name="remplazo" class="validate">
+                        <label for="inputRem2">Remplazo</label>
                     </div>
                     <div class="input-field col s4">
                         <i class="material-icons prefix">card_membership</i>
-                        <input id="inputCedulaRem" type="text" name="ci_remplazo" class="validate">
-                        <label for="inputCedulaRem">Cedula remplazo</label>
+                        <input id="inputCedulaRem2" type="text" name="ci_remplazo" class="validate">
+                        <label for="inputCedulaRem2">Cedula remplazo</label>
                     </div>
                 </div>
 
@@ -413,7 +413,7 @@
         var militante = auxMilitantes.filter(dato => dato.id == idMilitante)
         var linea = $('#tr' + idMilitante).find('td')
 
-        $('#inputId').val(idMilitante)
+        $('#inputId2').val(idMilitante)
         var auxFecha = new Date(militante[0].fechaNac)
 
 
@@ -428,24 +428,24 @@
         if (mes < 10) {
             mes = '0' + mes;
         }
-        $('#inputNombre').val(militante[0].nombre)
-        $('#inputInstitucion').val(militante[0].institucion)
-        $('#inputCargo').val(militante[0].cargo)
-        $('#inputCedula').val(militante[0].cedula)
-        $('#inputCelular').val(militante[0].celular)
-        $('#inputDireccion').val(militante[0].direccion)
-        $('#inputSexo').val(militante[0].sexo)
-        $('#inputEmail').val(militante[0].email)
+        $('#inputNombre2').val(militante[0].nombre)
+        $('#inputInstitucion2').val(militante[0].institucion)
+        $('#inputCargo2').val(militante[0].cargo)
+        $('#inputCedula2').val(militante[0].cedula)
+        $('#inputCelular2').val(militante[0].celular)
+        $('#inputDireccion2').val(militante[0].direccion)
+        $('#inputSexo2').val(militante[0].sexo)
+        $('#inputEmail2').val(militante[0].email)
         //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
         // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
         //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-        $('#inputFechaNac').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
+        $('#inputFechaNac2').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
         console.log('FECHA:', auxFecha.getFullYear() + '-' + auxFecha.getMonth() + '-' + auxFecha.getDate())
 
-        $('#inputRem').val(militante[0].remplazo)
-        $('#inputCedulaRem').val(militante[0].ci_remplazo)
+        $('#inputRem2').val(militante[0].remplazo)
+        $('#inputCedulaRem2').val(militante[0].ci_remplazo)
         $('#modal1').openModal();
     };
 
@@ -500,6 +500,7 @@
                 //if request if made successfully then the response represent the data
                 // console.log(response);
                 // auxMilitantes
+                location.reload();
 
                 $('.modal').closeModal();
                 $('#carga').hide()
@@ -683,23 +684,25 @@
 });
 </script>
 
-<%if (req.user.rol == 'admin') {%>
-
-<!-- <script type="text/javascript" src="/dependencies/sails.io.js"></script> -->
-
 <!-- 
+<script type="text/javascript" src="/dependencies/sails.io.js"></script> 
+
+ 
 <script type="text/javascript">
     io.socket.on('militante', function osoSubscribe(data) {
-     
-
+        var auxMilitante = data.data;
+        console.log('MILITANTE ALERTA:', data)
+        auxMilitantes = auxMilitantes.map(obj => {
+            if (obj.id == auxMilitante.id) {
+                obj = Object.assign({}, obj, auxMilitante)
+            }
+            return obj
+        })
+        actualizarTabla(auxMilitantes)
     });
-
     // $('btnPrueba').click(function () {
-
     io.socket.get('/militante', function osoRespuesta(body, response) {
         console.log('ACTUAL Militante', body);
     });
     // })
-
 </script> -->
-<%}%>
