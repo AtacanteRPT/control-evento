@@ -20,7 +20,7 @@ module.exports = {
     },
     reporte: async function (req, res) {
         const excel = require('node-excel-export');
-        var datoMilitantes = await Militante.find();
+        var datoMilitantes = await Militante.find({asistencia:true});
 
         console.log('MILITANTES',datoMilitantes)
         var dataset = [];
