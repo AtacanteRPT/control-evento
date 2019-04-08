@@ -11,10 +11,10 @@
                 <div class="row">
                     <div class="center card-title">
                         <!-- <b>Controlar Asistencia</b><br> -->
-                        <b>AMPLIADO POR CIRCUNSCRIPCIÓN REGIONAL LA PAZ MAS-IPSP </b><H4>Circunscripción 9</H4>
+                        <b>COORDINACIÓN PLAN DE GOBIERNO </b><H4>MACRODISTRITO 3</H4>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col s12">
                         <div class="row">
                             <div class="input-field col s12">
@@ -24,7 +24,24 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
+
+                <table class="striped" id="tablaMilitantes">
+                    <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>Nombre</th>
+                            <th>Cargo</th>
+                            <th>Cedula</th>
+                            <th>Celular</th>
+                            <th>Asistencia</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
                 <div class="row">
                     <form method="POST" action="/militante/nuevo" class="col s12">
                         <div class="row">
@@ -446,6 +463,9 @@
         // .done(function( data ) {
         //     console.log(data)
         // });
+
+        if(auxBuscar.length > 3){
+
         $.ajax({
             type: "POST",
             url: "/controlador/buscarMilitante",
@@ -458,6 +478,7 @@
                 auxMilitantes = response;
             }
         });
+        }
 
 
     })
@@ -661,22 +682,16 @@
         //doc.save('table.pdf');
 });
 </script>
+
+<%if (req.user.rol == 'admin') {%>
+
 <!-- <script type="text/javascript" src="/dependencies/sails.io.js"></script> -->
 
-
-<!-- <script type="text/javascript">
+<!-- 
+<script type="text/javascript">
     io.socket.on('militante', function osoSubscribe(data) {
-        var auxMilitante = data.data;
-        console.log('MILITANTE ALERTA:', data)
+     
 
-        auxMilitantes = auxMilitantes.map(obj => {
-            if (obj.id == auxMilitante.id) {
-                obj = Object.assign({}, obj, auxMilitante)
-            }
-            return obj
-        })
-
-        actualizarTabla(auxMilitantes)
     });
 
     // $('btnPrueba').click(function () {
@@ -687,3 +702,4 @@
     // })
 
 </script> -->
+<%}%>

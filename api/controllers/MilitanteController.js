@@ -199,6 +199,7 @@ module.exports = {
         res.attachment('report.xlsx'); // This is sails.js specific (in general you need to set headers)
         return res.send(report);
 
-    }
+    },
+
 };
 
