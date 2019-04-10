@@ -108,7 +108,7 @@ module.exports = {
                 { value: 'Reporte Asistentes', style: styles.cellTitulo },
                 { value: 'GATO', style: styles.headerDark },
                 { value: 'PERRO', style: styles.headerDark }],
-            [{ value: 'AMPLIADO POR CIRCUNSCRIPCIÓN LA PAZ "Circunscripción 9"', style: styles.cellTitulo }] ,// <-- It can be only values
+            [{ value: 'COORDINACIÓN PLAN DE GOBIERNO "MACRODISTRITO 2"', style: styles.cellTitulo }] ,// <-- It can be only values
             [{ value: 'Total asistentes : '+ datoMilitantes.length, style: styles.cellTitulo }]
         ];
         
