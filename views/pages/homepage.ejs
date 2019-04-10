@@ -44,7 +44,7 @@
                     </tbody>
                 </table>
                 <div class="row">
-                    <form method="POST" action="/militante/nuevo" class="col s12">
+                    <form method="POST" id='formNuevo' action="/militante/nuevo" class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
@@ -152,12 +152,13 @@
                         </div>
 
                         <!-- <input type="submit" value="Actualizar"> -->
-                        <input class="btn" type="submit" value="ADICIONAR">
+                        <input class="btn" id='btnAdicionar' type="submit" value="ADICIONAR">
 
                         <!-- <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
                             <i class="material-icons right">local_printshop</i>
                         </button> -->
                     </form>
+                    <a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a>
                 </div>
 
 
@@ -276,7 +277,7 @@
         </div>
     </div>
 </div>
-<div id="modal2" class="modal">
+<!-- <div id="modal2" class="modal">
     <div class="modal-content">
         <h4>Nuevo Invitado Militante</h4>
 
@@ -322,7 +323,6 @@
 
                     </div>
                     <div class="input-field col s6">
-                        <!-- <i class="material-icons prefix">people</i> -->
 
                         <select class="browser-default" id="inputSexo" name="inputSexo">
                             <option value="" selected> Selecionar Genero</option>
@@ -330,7 +330,6 @@
                             <option value="F">Femenino</option>
                             <option value="O">Otro</option>
                         </select>
-                        <!-- <label>Seleccionar Genero</label> -->
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">location_city</i>
@@ -342,7 +341,6 @@
 
                 </div>
 
-                <!-- <input type="submit" value="Actualizar"> -->
                 <button id="btnActualizar" class="btn waves-effect waves-light" type="submit">Crear
                     <i class="material-icons right">send</i>
                 </button>
@@ -355,11 +353,12 @@
             <div class="indeterminate"></div>
         </div>
     </div>
-</div>
+</div> -->
 <script type="text/javascript" src="/js/imprimir.js"></script>
 <script>
 
     $('#carga').hide();
+    $('#btnEncontrado').hide();
     $('.button-collapse').sideNav();
 
     $('.collapsible').collapsible();
@@ -449,6 +448,74 @@
         $('#inputCedulaRem2').val(militante[0].ci_remplazo)
         $('#modal1').openModal();
     };
+var idMilitante = 0;
+    $('#inputCedula').keyup(function (params) {
+        var auxBuscar = $('#inputCedula').val()
+
+        console.log('AUXBUSCAR:', auxBuscar)
+        // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
+        // .done(function( data ) {
+        //     console.log(data)
+        // });
+        if (auxBuscar.length != 0) {
+
+            if (auxBuscar.length > 4) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/controlador/buscarMilitante",
+                    data: { nombre: auxBuscar },
+                    dataType: "json",
+                    success: function (militante) {
+                        if (militante.length > 0) {
+                            //if request if made successfully then the response represent the data
+                            $('#inputNombre').val(militante[0].nombre)
+                            $('#inputInstitucion').val(militante[0].institucion)
+                            $('#inputCargo').val(militante[0].cargo)
+                            $('#inputCedula').val(militante[0].cedula)
+                            $('#inputCelular').val(militante[0].celular)
+                            $('#inputDireccion').val(militante[0].direccion)
+                            $('#inputSexo').val(militante[0].sexo)
+                            $('#inputEmail').val(militante[0].email)
+                            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+
+                            // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
+
+                            //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
+                            // $('#inputFechaNac').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
+                            console.log('MILITANTE ENCONTRADO')
+                            idMilitante = militante[0].id;
+                            $('#inputRem').val(militante[0].remplazo)
+                            $('#inputCedulaRem').val(militante[0].ci_remplazo)
+                            $('#btnAdicionar').hide();
+                            $('#btnEncontrado').show();
+                        }else{
+
+                        }
+
+                    }
+                });
+            }
+        } else {
+            $('#inputNombre').val('')
+            $('#inputInstitucion').val('')
+            $('#inputCargo').val('')
+            // $('#inputCedula').val(militante[0].cedula)
+            $('#inputCelular').val('')
+            $('#inputDireccion').val('')
+            $('#inputSexo').val('')
+            $('#inputEmail').val('')
+            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+
+            // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
+
+            //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
+            $('#inputFechaNac').val('')
+            $('#btnAdicionar').show();
+                            $('#btnEncontrado').hide();
+
+        }
+    })
 
     $('#btnAddMilitante').click(function (params) {
         $('#modal2').openModal();
@@ -481,10 +548,36 @@
                     }
                 });
             }
-        }else{
+        } else {
             actualizarTabla([])
         }
 
+
+    })
+
+    $('#btnEncontrado').click(function () {
+        $('#carga').show()
+        var form = $('#formNuevo').serialize()
+
+        if(idMilitante!=0){
+
+            form += '&sexo=' + $('#inputSexo').val();
+            form+='&asistencia=true'
+            console.log(form)
+            $.ajax({
+                type: "PATCH",
+                url: "/militante/" + idMilitante,
+                data: form,
+                dataType: "json",
+                success: function (response) {
+                    //if request if made successfully then the response represent the data
+                    // console.log(response);
+                    // auxMilitantes
+                    location.reload();
+    
+                }
+            });
+        }
 
     })
 
