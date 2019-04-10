@@ -13,7 +13,11 @@ module.exports = {
         materno: { type: 'string' },
         nombre: { type: 'string', required: true, },
 
-        cedula: { type: 'string', unique:true },
+        cedula: { 
+            columnType: 'varchar(185)',
+            type: 'string', 
+            unique:true 
+        },
         celular: { type: 'string' },
         telefono: { type: 'string' },
         cargo: { type: 'string' },
