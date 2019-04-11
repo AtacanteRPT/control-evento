@@ -12,7 +12,7 @@
                     <div class="center card-title">
                         <!-- <b>Controlar Asistencia</b><br> -->
                         <b>COORDINACIÓN PLAN DE GOBIERNO </b>
-                        <H4>MACRODISTRITO 2</H4>
+                        <H4>CIRCUNSCRIPCIÓN 6</H4>
                     </div>
                 </div>
                 <div class="row">
@@ -46,16 +46,17 @@
                 <div class="row">
                     <form method="POST" id='formNuevo' action="/militante/nuevo" class="col s12">
                         <div class="row">
+                                <div class="input-field col s6">
+                                        <i class="material-icons prefix">card_membership</i>
+                                        <input id="inputCedula" type="text" name="cedula" required class="validate">
+                                        <label for="inputCedula">Cedula</label>
+                                    </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
                                 <input id="inputNombre" type="text" name="nombre" required class="validate">
                                 <label for="inputNombre">Nombre</label>
                             </div>
-                            <div class="input-field col s6">
-                                <i class="material-icons prefix">card_membership</i>
-                                <input id="inputCedula" type="text" name="cedula" required class="validate">
-                                <label for="inputCedula">Cedula</label>
-                            </div>
+                            
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">phone</i>
                                 <input id="inputCelular" type="number" name="celular" class="validate">
@@ -98,23 +99,18 @@
                                 <i class="material-icons prefix">location_city</i>
                                 <select class="browser-default" id="inputInstitucion" name="institucion">
                                     <option value="" selected>Seleccionar DISTRITO</option>
-                                    <option value="DISTRITO_1">DISTRITO 1</option>
-                                    <option value="DISTRITO_2">DISTRITO 2</option>
-                                    <option value="DISTRITO_3">DISTRITO 3</option>
-                                    <option value="DISTRITO_25">DISTRITO 25</option>
-                                    <option value="DISTRITO_26">DISTRITO 26</option>
-                                    <option value="DISTRITO_27">DISTRITO 27</option>
-                                    <option value="DISTRITO_28">DISTRITO 28</option>
-                                    <option value="DISTRITO_29">DISTRITO 29</option>
-                                    <option value="DISTRITO_30">DISTRITO 30</option>
-                                    <option value="CAMARA_DIPUTADOS">CAMARA DE DIPUTADOS</option>
-                                    <option value="CONCEJAL">CONCEJALES</option>
-                                    <option value="OTRO">OTROS</option>
                                     <option value="DISTRITO_4">DISTRITO 4</option>
                                     <option value="DISTRITO_5">DISTRITO 5</option>
                                     <option value="DISTRITO_6">DISTRITO 6</option>
                                     <option value="DISTRITO_7">DISTRITO 7</option>
                                     <option value="DISTRITO_8">DISTRITO 8</option>
+                            
+                                    <option value="CAMARA_DIPUTADOS">CAMARA DE DIPUTADOS</option>
+                                    <option value="CONCEJAL">CONCEJALES</option>
+                                    <option value="OTRO">OTROS</option>
+                                    <option value="DISTRITO_1">DISTRITO 1</option>
+                                    <option value="DISTRITO_2">DISTRITO 2</option>
+                                    <option value="DISTRITO_3">DISTRITO 3</option>
                                     <option value="DISTRITO_9">DISTRITO 9</option>
                                     <option value="DISTRITO_10">DISTRITO 10</option>
                                     <option value="DISTRITO_11">DISTRITO 11</option>
@@ -131,6 +127,12 @@
                                     <option value="DISTRITO_22">DISTRITO 22</option>
                                     <option value="DISTRITO_23">DISTRITO 23</option>
                                     <option value="DISTRITO_24">DISTRITO 24</option>
+                                    <option value="DISTRITO_25">DISTRITO 25</option>
+                                    <option value="DISTRITO_26">DISTRITO 26</option>
+                                    <option value="DISTRITO_27">DISTRITO 27</option>
+                                    <option value="DISTRITO_28">DISTRITO 28</option>
+                                    <option value="DISTRITO_29">DISTRITO 29</option>
+                                    <option value="DISTRITO_30">DISTRITO 30</option>
 
 
                                 </select>
