@@ -12,7 +12,7 @@
                     <div class="center card-title">
                         <!-- <b>Controlar Asistencia</b><br> -->
                         <b>COORDINACIÓN PLAN DE GOBIERNO </b>
-                        <H4>CIRCUNSCRIPCIÓN 6</H4>
+                        <H4>CIRCUNSCRIPCIÓN 7</H4>
                     </div>
                 </div>
                 <div class="row">
@@ -461,7 +461,7 @@ var idMilitante = 0;
         // });
         if (auxBuscar.length != 0) {
 
-            if (auxBuscar.length > 4) {
+            if (auxBuscar.length > 5) {
 
                 $.ajax({
                     type: "POST",
@@ -489,8 +489,8 @@ var idMilitante = 0;
                             idMilitante = militante[0].id;
                             $('#inputRem').val(militante[0].remplazo)
                             $('#inputCedulaRem').val(militante[0].ci_remplazo)
-                            $('#btnAdicionar').hide();
-                            $('#btnEncontrado').show();
+                           // $('#btnAdicionar').hide();
+                           $('#btnEncontrado').show();
                         }else{
 
                         }
@@ -513,8 +513,8 @@ var idMilitante = 0;
 
             //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
             $('#inputFechaNac').val('')
-            $('#btnAdicionar').show();
-                            $('#btnEncontrado').hide();
+         //   $('#btnAdicionar').show();
+            $('#btnEncontrado').hide();
 
         }
     })
