@@ -1,0 +1,19 @@
+<h1>Show admin</h1>
+
+	<p>
+		<strong>createdAt:</strong>
+		<%= element.createdAt %>
+	</p>
+	<p>
+		<strong>updatedAt:</strong>
+		<%= element.updatedAt %>
+	</p>
+	<p>
+		<strong>id:</strong>
+		<%= element.id %>
+	</p>
+
+<br>
+<a href="/admin/edit/<%= element.id %>">Edit</a>
+<a href="/admin/create">New</a>
+<a href="/admin">Back</a>

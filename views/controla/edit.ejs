@@ -1,0 +1,32 @@
+<div class="">
+  <h1>New controla</h1>
+
+  <div class="body">
+    <form class="" action="/controla/update" method="post">
+      <input name="id" value="<%= element.id %>" hidden="true" required>
+        <div class="">
+          <label for="">createdAt</label>
+          <input type="number" name="createdAt" value="<%= element.createdAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">updatedAt</label>
+          <input type="number" name="updatedAt" value="<%= element.updatedAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">id</label>
+          <input type="number" name="id" value="<%= element.id %>" required="true">
+        </div>
+        <div class="">
+          <label for="">idUsuario</label>
+          <input type="number" name="idUsuario" value="<%= element.idUsuario %>" required="false">
+        </div>
+        <div class="">
+          <label for="">idEvento</label>
+          <input type="number" name="idEvento" value="<%= element.idEvento %>" required="false">
+        </div>
+      <button type="submit">Update controla</button>
+    </form>
+    <br />
+    <a href="/controla">Index</a>
+  </div>
+</div>

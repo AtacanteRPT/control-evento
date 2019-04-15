@@ -1,0 +1,45 @@
+<main>
+    <div class="row">
+        <div class="col s12">
+
+
+
+            <h4>Actualizar Evento</h4>
+
+            <div class="row">
+                <form class="" action="/evento/update" method="post">
+                    <input name="id" value="<%= element.id %>" hidden="true" required>
+                    <div class="col s12 m6">
+                        <label for="">nombre</label>
+                        <input type="text" name="nombre" value="<%= element.nombre %>">
+                    </div>
+                    <div class="col s12 m6">
+                        <label for="">estado</label>
+                        <input type="text" name="estado" value="<%= element.estado %>">
+                    </div>
+
+                    <div class="col s12 m6">
+                        <label for="">fecha</label>
+                        <input type="text" name="fecha" value="<%= element.fecha %>">
+                    </div>
+                    <div class="col s12 m6">
+                        <label for="">observacion</label>
+                        <input type="text" name="observacion" value="<%= element.observacion %>">
+                    </div>
+                    <div class="col s12 m6">
+                        <label for="">hora</label>
+                        <input type="text" name="hora" value="<%= element.hora %>">
+                    </div>
+
+                    <button type="submit">Actualizar</button>
+                </form>
+                <br />
+                <a href="/evento">Index</a>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</main>

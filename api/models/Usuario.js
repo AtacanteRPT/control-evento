@@ -11,7 +11,9 @@ const bcrypt = require('bcrypt-nodejs');
 module.exports = {
 
     attributes: {
-
+        createdAt: { type: 'number', autoCreatedAt: true, },
+        updatedAt: { type: 'number', autoUpdatedAt: true, },
+        id: { type: 'number', autoIncrement: true, },
         username: {
             type: 'string',
         },

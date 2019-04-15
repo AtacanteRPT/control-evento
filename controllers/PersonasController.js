@@ -1,12 +1,12 @@
 /**
- * Evento
+ * Personas
  *
- * @description :: Server-side logic for managing Evento
+ * @description :: Server-side logic for managing Personas
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 module.exports = {
     index: function(req, res, next) {
-        Evento.find().exec(function(err, list) {
+        Personas.find().exec(function(err, list) {
             if (err) return Error('Error');
             return res.view({
                 result: list
@@ -15,7 +15,7 @@ module.exports = {
     },
 
     show: function(req, res, next) {
-        Evento.findOneById(req.param('id'), function Founded(err, value) {
+        Personas.findOneById(req.param('id'), function Founded(err, value) {
             if (err) {
                 return next(err);
             }
@@ -26,7 +26,7 @@ module.exports = {
     },
 
     edit: function(req, res, next) {
-        Evento.findOne(req.param('id'), function Founded(err, value) {
+        Personas.findOne(req.param('id'), function Founded(err, value) {
             if (err) {
                 return next(err);
             }
@@ -35,30 +35,22 @@ module.exports = {
             });
         });
     },
-    nuevo: function(req, res, next) {
-        Evento.create(req.body, function Founded(err, value) {
-            if (err) {
-                return next(err);
-            }
-            return res.redirect('/evento/index');
-        });
-    },
 
     update: function(req, res, next) {
-        Evento.update(req.param('id'), req.body, function Update(err, value) {
+        Personas.update(req.param('id'), req.body, function Update(err, value) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/evento/index');
+            return res.redirect('personas/show/' + req.param('id'));
         });
     },
 
     delete: function(req, res, next) {
-        Evento.destroy(req.param('id'), function Update(err, value) {
+        Personas.destroy(req.param('id'), function Update(err, value) {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/evento/index');
+            return res.redirect('/personas');
         });
     },
 

@@ -1,0 +1,40 @@
+<div class="">
+  <h1>New usuario</h1>
+
+  <div class="body">
+    <form class="" action="/usuario/update" method="post">
+      <input name="id" value="<%= element.id %>" hidden="true" required>
+        <div class="">
+          <label for="">createdAt</label>
+          <input type="number" name="createdAt" value="<%= element.createdAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">updatedAt</label>
+          <input type="number" name="updatedAt" value="<%= element.updatedAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">id</label>
+          <input type="number" name="id" value="<%= element.id %>" required="true">
+        </div>
+        <div class="">
+          <label for="">username</label>
+          <input type="text" name="username" value="<%= element.username %>" required="false">
+        </div>
+        <div class="">
+          <label for="">password</label>
+          <input type="text" name="password" value="<%= element.password %>" required="false">
+        </div>
+        <div class="">
+          <label for="">rol</label>
+          <input type="text" name="rol" value="<%= element.rol %>" required="false">
+        </div>
+        <div class="">
+          <label for="">idMilitante</label>
+          <input type="number" name="idMilitante" value="<%= element.idMilitante %>" required="false">
+        </div>
+      <button type="submit">Update usuario</button>
+    </form>
+    <br />
+    <a href="/usuario">Index</a>
+  </div>
+</div>

@@ -1,20 +1,37 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js">
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.33/vfs_fonts.js"></script>
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-<script src="https://unpkg.com/jspdf-autotable@3.0.13/dist/jspdf.plugin.autotable.js"></script>
+<script src="https://unpkg.com/jspdf-autotable@3.0.13/dist/jspdf.plugin.autotable.js"></script>-->
 
 <main>
     <div class="row">
         <div class="col s12">
+            <select name="select" onchange="location=this.value">
+                <option > Seleccionar Evento </option>
+                <% eventos.forEach((evento, i)=>{ %> 
+                <option value="/controlador/evento/<%= evento.id %>">  <%= evento.nombre%> </option>
+                <% }) %> 
+            </select>
+            <a class="waves-effect waves-light btn" href="/asistencia/reporte_excel/<%=idActualEvento%>"><i class="material-icons right">archive</i>Reporte</a>
+
             <div style="padding: 35px;" align="center" class="card">
                 <div class="row">
+
                     <div class="center card-title">
+
                         <!-- <b>Controlar Asistencia</b><br> -->
                         <b>COORDINACIÓN PLAN DE GOBIERNO </b>
-                        <H4>CIRCUNSCRIPCIÓN 7</H4>
+                        <% var actualEvento = eventos.filter(dato=>dato.id==idActualEvento)%>
+                            <% if(idActualEvento!=0){ %>
+                                <H4>
+                                    <%= actualEvento[0].nombre%>
+                                </H4>
+                                <% }%>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
@@ -46,17 +63,17 @@
                 <div class="row">
                     <form method="POST" id='formNuevo' action="/militante/nuevo" class="col s12">
                         <div class="row">
-                                <div class="input-field col s6">
-                                        <i class="material-icons prefix">card_membership</i>
-                                        <input id="inputCedula" type="text" name="cedula" required class="validate">
-                                        <label for="inputCedula">Cedula</label>
-                                    </div>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">card_membership</i>
+                                <input id="inputCedula" type="text" name="cedula" required class="validate">
+                                <label for="inputCedula">Cedula</label>
+                            </div>
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">account_circle</i>
                                 <input id="inputNombre" type="text" name="nombre" required class="validate">
                                 <label for="inputNombre">Nombre</label>
                             </div>
-                            
+
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">phone</i>
                                 <input id="inputCelular" type="number" name="celular" class="validate">
@@ -358,7 +375,6 @@
 </div> -->
 <script type="text/javascript" src="/js/imprimir.js"></script>
 <script>
-
     $('#carga').hide();
     $('#btnEncontrado').hide();
     $('.button-collapse').sideNav();
@@ -370,44 +386,50 @@
 
     // $('.datepicker').datepicker();
 
-    var auxMilitantes = <%- JSON.stringify(militantes) %>
-
-        // var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
-        // var auxAsistencias = votosTrue.length;
-        function actualizarTabla(listaMilitantes) {
-            $('#tablaMilitantes > tbody').empty()
-            listaMilitantes.forEach(function (militante, index) {
-                $('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
-                    '<td>' + (index + 1) + '</td>' +
-                    '<td>' + militante.nombre + '</td>' +
-                    '<td>' + militante.cargo + '</td>' +
-                    '<td>' + militante.cedula + '</td>' +
-                    '<td>' + militante.celular + '</td>' +
-                    '<td>' + '<div class="switch"><label>NO<input id="voto' + militante.id + '" type="checkbox"><span class="lever"></span>SI</label></div>' + '</td>' +
-                    '<td>' + '<button class="waves-effect waves-light btn" onclick="actualizarMilitante(' + militante.id + ')" type="button"><i class="material-icons">edit</i></button>' + '</td>' +
-                    '</tr>')
-                $('#voto' + militante.id).attr('checked', militante.asistencia)
-                $('#voto' + militante.id).click(function () {
-                    console.log($('#voto' + militante.id).prop('checked'))
-                    $.ajax({
-                        type: "PATCH",
-                        url: "/militante/" + militante.id,
-                        data: { asistencia: $('#voto' + militante.id).prop('checked'), hora: new Date().toTimeString() },
-                        dataType: "json",
-                        success: function (response) {
-                            //if request if made successfully then the response represent the data
-                            console.log(response);
-                            // auxMilitantes
-
-                            $('.modal').closeModal();
-                            $('#carga').hide()
-                        }
-                    });
+    var auxMilitantes = <%- JSON.stringify(militantes) %>;
+    var idEventoActual = <%- idActualEvento %>;
+    var auxEventos = <%- JSON.stringify(eventos) %>;
 
 
-                })
-            }, this);
-        }
+    // var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
+    // var auxAsistencias = votosTrue.length;
+    function actualizarTabla(listaMilitantes) {
+        $('#tablaMilitantes > tbody').empty()
+        listaMilitantes.forEach(function(militante, index) {
+            $('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
+                '<td>' + (index + 1) + '</td>' +
+                '<td>' + militante.nombre + '</td>' +
+                '<td>' + militante.cargo + '</td>' +
+                '<td>' + militante.cedula + '</td>' +
+                '<td>' + militante.celular + '</td>' +
+                '<td>' + '<div class="switch"><label>NO<input id="voto' + militante.id + '" type="checkbox"><span class="lever"></span>SI</label></div>' + '</td>' +
+                '<td>' + '<button class="waves-effect waves-light btn" onclick="actualizarMilitante(' + militante.id + ')" type="button"><i class="material-icons">edit</i></button>' + '</td>' +
+                '</tr>')
+            $('#voto' + militante.id).attr('checked', militante.asistencia)
+            $('#voto' + militante.id).click(function() {
+                console.log($('#voto' + militante.id).prop('checked'))
+                $.ajax({
+                    type: "PATCH",
+                    url: "/militante/" + militante.id,
+                    data: {
+                        asistencia: $('#voto' + militante.id).prop('checked'),
+                        hora: new Date().toTimeString()
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        //if request if made successfully then the response represent the data
+                        console.log(response);
+                        // auxMilitantes
+
+                        $('.modal').closeModal();
+                        $('#carga').hide()
+                    }
+                });
+
+
+            })
+        }, this);
+    }
 
     function actualizarMilitante(idMilitante) {
         console.log(idMilitante)
@@ -438,7 +460,7 @@
         $('#inputDireccion2').val(militante[0].direccion)
         $('#inputSexo2').val(militante[0].sexo)
         $('#inputEmail2').val(militante[0].email)
-        //$("#inputSexo option[value='O']").attr('selected', 'selected');
+            //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
         // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
@@ -450,15 +472,15 @@
         $('#inputCedulaRem2').val(militante[0].ci_remplazo)
         $('#modal1').openModal();
     };
-var idMilitante = 0;
-    $('#inputCedula').keyup(function (params) {
+    var idMilitante = 0;
+    $('#inputCedula').keyup(function(params) {
         var auxBuscar = $('#inputCedula').val()
 
         console.log('AUXBUSCAR:', auxBuscar)
-        // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
-        // .done(function( data ) {
-        //     console.log(data)
-        // });
+            // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
+            // .done(function( data ) {
+            //     console.log(data)
+            // });
         if (auxBuscar.length != 0) {
 
             if (auxBuscar.length > 5) {
@@ -466,20 +488,22 @@ var idMilitante = 0;
                 $.ajax({
                     type: "POST",
                     url: "/controlador/buscarMilitante",
-                    data: { nombre: auxBuscar },
+                    data: {
+                        nombre: auxBuscar
+                    },
                     dataType: "json",
-                    success: function (militante) {
+                    success: function(militante) {
                         if (militante.length > 0) {
                             //if request if made successfully then the response represent the data
                             $('#inputNombre').val(militante[0].nombre)
                             $('#inputInstitucion').val(militante[0].institucion)
                             $('#inputCargo').val(militante[0].cargo)
-                           // $('#inputCedula').val(militante[0].cedula)
+                                // $('#inputCedula').val(militante[0].cedula)
                             $('#inputCelular').val(militante[0].celular)
                             $('#inputDireccion').val(militante[0].direccion)
                             $('#inputSexo').val(militante[0].sexo)
                             $('#inputEmail').val(militante[0].email)
-                            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+                                //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
                             // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
@@ -489,23 +513,23 @@ var idMilitante = 0;
                             idMilitante = militante[0].id;
                             $('#inputRem').val(militante[0].remplazo)
                             $('#inputCedulaRem').val(militante[0].ci_remplazo)
-                           // $('#btnAdicionar').hide();
-                           $('#btnEncontrado').show();
-                        }else{
+                                // $('#btnAdicionar').hide();
+                            $('#btnEncontrado').show();
+                        } else {
                             $('#inputNombre').val('')
-            $('#inputInstitucion').val('')
-            $('#inputCargo').val('')
-            // $('#inputCedula').val(militante[0].cedula)
-            $('#inputCelular').val('')
-            $('#inputDireccion').val('')
-            $('#inputSexo').val('')
-            $('#inputEmail').val('')
-            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+                            $('#inputInstitucion').val('')
+                            $('#inputCargo').val('')
+                                // $('#inputCedula').val(militante[0].cedula)
+                            $('#inputCelular').val('')
+                            $('#inputDireccion').val('')
+                            $('#inputSexo').val('')
+                            $('#inputEmail').val('')
+                                //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
-            // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
+                            // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
-            //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-            $('#inputFechaNac').val('')
+                            //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
+                            $('#inputFechaNac').val('')
 
                         }
 
@@ -516,37 +540,37 @@ var idMilitante = 0;
             $('#inputNombre').val('')
             $('#inputInstitucion').val('')
             $('#inputCargo').val('')
-            // $('#inputCedula').val(militante[0].cedula)
+                // $('#inputCedula').val(militante[0].cedula)
             $('#inputCelular').val('')
             $('#inputDireccion').val('')
             $('#inputSexo').val('')
             $('#inputEmail').val('')
-            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+                //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
             // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
             //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
             $('#inputFechaNac').val('')
-         //   $('#btnAdicionar').show();
+                //   $('#btnAdicionar').show();
             $('#btnEncontrado').hide();
 
         }
     })
 
-    $('#btnAddMilitante').click(function (params) {
+    $('#btnAddMilitante').click(function(params) {
         $('#modal2').openModal();
 
     })
 
     actualizarTabla(auxMilitantes);
-    $('#inputBuscar').keyup(function (event) {
+    $('#inputBuscar').keyup(function(event) {
         var auxBuscar = $('#inputBuscar').val()
 
         console.log('AUXBUSCAR:', auxBuscar)
-        // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
-        // .done(function( data ) {
-        //     console.log(data)
-        // });
+            // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
+            // .done(function( data ) {
+            //     console.log(data)
+            // });
         if (auxBuscar.length != 0) {
 
             if (auxBuscar.length > 3) {
@@ -554,9 +578,11 @@ var idMilitante = 0;
                 $.ajax({
                     type: "POST",
                     url: "/controlador/buscarMilitante",
-                    data: { nombre: auxBuscar },
+                    data: {
+                        nombre: auxBuscar
+                    },
                     dataType: "json",
-                    success: function (response) {
+                    success: function(response) {
                         //if request if made successfully then the response represent the data
                         console.log(response)
                         actualizarTabla(response)
@@ -571,26 +597,26 @@ var idMilitante = 0;
 
     })
 
-    $('#btnEncontrado').click(function () {
+    $('#btnEncontrado').click(function() {
         $('#carga').show()
         var form = $('#formNuevo').serialize()
 
-        if(idMilitante!=0){
+        if (idMilitante != 0) {
 
             form += '&sexo=' + $('#inputSexo').val();
-            form+='&asistencia=true'
+            form += '&asistencia=true'
             console.log(form)
             $.ajax({
                 type: "PATCH",
                 url: "/militante/" + idMilitante,
                 data: form,
                 dataType: "json",
-                success: function (response) {
+                success: function(response) {
                     //if request if made successfully then the response represent the data
                     // console.log(response);
                     // auxMilitantes
                     location.reload();
-    
+
                 }
             });
         }
@@ -598,7 +624,7 @@ var idMilitante = 0;
     })
 
 
-    $('#btnActualizar').click(function () {
+    $('#btnActualizar').click(function() {
         $('#carga').show()
         var form = $('#formActualizar').serialize()
         var id = $('#formActualizar').serializeArray()
@@ -610,7 +636,7 @@ var idMilitante = 0;
             url: "/militante/" + id[0].value,
             data: form,
             dataType: "json",
-            success: function (response) {
+            success: function(response) {
                 //if request if made successfully then the response represent the data
                 // console.log(response);
                 // auxMilitantes
@@ -623,7 +649,7 @@ var idMilitante = 0;
 
     })
 
-    $('#btnImprimir').click(function () {
+    $('#btnImprimir').click(function() {
 
         // create the window before the callback
         // var win = window.open('', '_blank');
@@ -643,8 +669,7 @@ var idMilitante = 0;
             nuevoNombre = auxnombre[0] + ' ' + auxnombre[1] + '\n' + auxnombre[2] + ' ' + auxnombre[3]
         } else if (auxnombre.length == 5) {
             nuevoNombre = auxnombre[0] + ' ' + auxnombre[1] + ' ' + auxnombre[2] + '\n' + auxnombre[3] + auxnombre[4]
-        }
-        else {
+        } else {
             nuevoNombre = $('#inputNombre').val();
         }
 
@@ -664,14 +689,17 @@ var idMilitante = 0;
                 }
                 nuevoCargo += auxCargo[index] + ' '
             }
-        }
-        else {
+        } else {
             nuevoCargo = $('#inputCargo').val();
         }
-        var part = [{ nombre: nuevoNombre.toUpperCase(), cargo: nuevoCargo, categoria: $('#inputInstitucion').val().toUpperCase() }]
-        // { nombre: 'RICARDO OSO', categoria: 'CAT 2' },
-        // { nombre: 'CARLOS TORREZ', categoria: 'CAT 3' },
-        // { nombre: 'JOSE LOPEZ', categoria: 'CAT 4' }];
+        var part = [{
+                nombre: nuevoNombre.toUpperCase(),
+                cargo: nuevoCargo,
+                categoria: $('#inputInstitucion').val().toUpperCase()
+            }]
+            // { nombre: 'RICARDO OSO', categoria: 'CAT 2' },
+            // { nombre: 'CARLOS TORREZ', categoria: 'CAT 3' },
+            // { nombre: 'JOSE LOPEZ', categoria: 'CAT 4' }];
 
 
         // doc.setFontType("");
@@ -679,10 +707,14 @@ var idMilitante = 0;
         doc.setLineHeightFactor(1.15)
         doc.setFontSize(14);
         doc.setTextColor(255, 255, 255)
-        doc.text(part[0].nombre, 50, 88, { align: 'center' });
+        doc.text(part[0].nombre, 50, 88, {
+            align: 'center'
+        });
         doc.setFontSize(11);
         doc.setTextColor(133, 133, 133)
-        doc.text(part[0].cargo, 50, 98, { align: 'center' });
+        doc.text(part[0].cargo, 50, 98, {
+            align: 'center'
+        });
         doc.setTextColor(255, 255, 255)
         doc.setFontSize(8);
         doc.text(part[0].categoria, 21, 110);
@@ -712,7 +744,7 @@ var idMilitante = 0;
 
     })
 
-    $('#btnReporte').click(function () {
+    $('#btnReporte').click(function() {
         var doc = new jsPDF();
         // You can use html:
         //doc.autoTable({html: '#my-table'});
@@ -725,7 +757,7 @@ var idMilitante = 0;
         var listaAsistentesImprimir = [];
         var listaFaltantesImprimir = [];
 
-        auxMilitantes.forEach(function (dato) {
+        auxMilitantes.forEach(function(dato) {
 
             if (dato.asistencia == true) {
                 var vector = [dato.nombre, dato.cargo, dato.institucion, dato.cedula, dato.celular, dato.hora.split(' ')[0]]
@@ -737,15 +769,29 @@ var idMilitante = 0;
         console.log('ASISTENTES', listaAsistentesImprimir)
 
         doc.autoTable({
-            head: [['Nombre', 'Cargo', 'Institución', 'Cedula', 'Celular', 'Hora']],
+            head: [
+                ['Nombre', 'Cargo', 'Institución', 'Cedula', 'Celular', 'Hora']
+            ],
             body: listaAsistentesImprimir,
             columnStyles: {
-                0: { columnWidth: 45 },
-                1: { columnWidth: 35 },
-                2: { columnWidth: 45 },
-                3: { columnWidth: 20 },
-                4: { columnWidth: 15 },
-                5: { columnWidth: 20 },
+                0: {
+                    columnWidth: 45
+                },
+                1: {
+                    columnWidth: 35
+                },
+                2: {
+                    columnWidth: 45
+                },
+                3: {
+                    columnWidth: 20
+                },
+                4: {
+                    columnWidth: 15
+                },
+                5: {
+                    columnWidth: 20
+                },
 
                 // etc
             },
@@ -755,7 +801,30 @@ var idMilitante = 0;
         window.open(URL.createObjectURL(doc.output("blob")))
 
     });
-    $('#btnReporteF').click(function () {
+
+
+    $('#btnReporteExcel').click(function() {
+
+        var actualEvento = auxEventos.filter(dato => dato.id == idEventoActual)
+
+        $.ajax({
+            type: "POST",
+            url: "/asistencia/reporte_excel",
+            data: {
+                nombreEvento: actualEvento[0].nombre,
+                idEvento: idEventoActual
+
+            },
+            dataType: "json",
+            success: function(data, status, xhr) {
+
+                window.URL.revokeObjectURL(url);
+
+            }
+        });
+    });
+
+    $('#btnReporteF').click(function() {
         var doc = new jsPDF();
         // You can use html:
         //doc.autoTable({html: '#my-table'});
@@ -766,7 +835,7 @@ var idMilitante = 0;
         var listaAsistentesImprimir = [];
         var listaFaltantesImprimir = [];
 
-        auxMilitantes.forEach(function (dato) {
+        auxMilitantes.forEach(function(dato) {
 
             if (dato.asistencia != true) {
                 var vector = [dato.nombre, dato.remplazo, dato.cargo, dato.institucion, dato.cedula, dato.celular]
@@ -778,14 +847,26 @@ var idMilitante = 0;
         console.log('FALTAS', listaFaltantesImprimir)
 
         doc.autoTable({
-            head: [['Nombre', 'Remplazo', 'Cargo', 'Institución', 'Cedula', 'Celular']],
+            head: [
+                ['Nombre', 'Remplazo', 'Cargo', 'Institución', 'Cedula', 'Celular']
+            ],
             body: listaFaltantesImprimir,
             columnStyles: {
-                0: { columnWidth: 50 },
-                1: { columnWidth: 40 },
-                2: { columnWidth: 40 },
-                3: { columnWidth: 50 },
-                4: { columnWidth: 20 },
+                0: {
+                    columnWidth: 50
+                },
+                1: {
+                    columnWidth: 40
+                },
+                2: {
+                    columnWidth: 40
+                },
+                3: {
+                    columnWidth: 50
+                },
+                4: {
+                    columnWidth: 20
+                },
 
 
                 // etc

@@ -1,0 +1,88 @@
+<div class="">
+  <h1>New militante</h1>
+
+  <div class="body">
+    <form class="" action="/militante/update" method="post">
+      <input name="id" value="<%= element.id %>" hidden="true" required>
+        <div class="">
+          <label for="">createdAt</label>
+          <input type="number" name="createdAt" value="<%= element.createdAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">updatedAt</label>
+          <input type="number" name="updatedAt" value="<%= element.updatedAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">id</label>
+          <input type="number" name="id" value="<%= element.id %>" required="true">
+        </div>
+        <div class="">
+          <label for="">paterno</label>
+          <input type="text" name="paterno" value="<%= element.paterno %>" required="false">
+        </div>
+        <div class="">
+          <label for="">materno</label>
+          <input type="text" name="materno" value="<%= element.materno %>" required="false">
+        </div>
+        <div class="">
+          <label for="">nombre</label>
+          <input type="text" name="nombre" value="<%= element.nombre %>" required="false">
+        </div>
+        <div class="">
+          <label for="">cedula</label>
+          <input type="text" name="cedula" value="<%= element.cedula %>" required="false">
+        </div>
+        <div class="">
+          <label for="">celular</label>
+          <input type="text" name="celular" value="<%= element.celular %>" required="false">
+        </div>
+        <div class="">
+          <label for="">telefono</label>
+          <input type="text" name="telefono" value="<%= element.telefono %>" required="false">
+        </div>
+        <div class="">
+          <label for="">cargo</label>
+          <input type="text" name="cargo" value="<%= element.cargo %>" required="false">
+        </div>
+        <div class="">
+          <label for="">asistencia</label>
+          <input type="number" name="asistencia" value="<%= element.asistencia %>" required="false">
+        </div>
+        <div class="">
+          <label for="">institucion</label>
+          <input type="text" name="institucion" value="<%= element.institucion %>" required="false">
+        </div>
+        <div class="">
+          <label for="">email</label>
+          <input type="text" name="email" value="<%= element.email %>" required="false">
+        </div>
+        <div class="">
+          <label for="">direccion</label>
+          <input type="text" name="direccion" value="<%= element.direccion %>" required="false">
+        </div>
+        <div class="">
+          <label for="">fechaNac</label>
+          <input type="text" name="fechaNac" value="<%= element.fechaNac %>" required="false">
+        </div>
+        <div class="">
+          <label for="">remplazo</label>
+          <input type="text" name="remplazo" value="<%= element.remplazo %>" required="false">
+        </div>
+        <div class="">
+          <label for="">ci_remplazo</label>
+          <input type="text" name="ci_remplazo" value="<%= element.ci_remplazo %>" required="false">
+        </div>
+        <div class="">
+          <label for="">hora</label>
+          <input type="text" name="hora" value="<%= element.hora %>" required="false">
+        </div>
+        <div class="">
+          <label for="">sexo</label>
+          <input type="text" name="sexo" value="<%= element.sexo %>" required="false">
+        </div>
+      <button type="submit">Update militante</button>
+    </form>
+    <br />
+    <a href="/militante">Index</a>
+  </div>
+</div>

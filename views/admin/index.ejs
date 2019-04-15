@@ -1,0 +1,63 @@
+<h1>admin</h1>
+
+
+<% if (result.length == 0) { %>
+  <h4>
+    0 admin
+  </h4>
+<% } else { %>
+<table>
+	<thead>
+    <th>#</th>
+		<th>id</th>
+			<th>createdAt</th>
+			<th>updatedAt</th>
+			<th>id</th>
+
+		<th>created at</th>
+		<th>updated at</th>
+		<th colspan="3"></th>
+	</thead>
+
+	<tbody>
+		<% result.forEach((item, i) => { %>
+			<tr>
+				<td>
+					<%= (i + 1) %>
+				</td>
+				<td>
+					<%= item.id %>
+				</td>
+					<td>
+						<%= item.createdAt %>
+					</td>
+					<td>
+						<%= item.updatedAt %>
+					</td>
+					<td>
+						<%= item.id %>
+					</td>
+				<td>
+					<%= item.createdAt %>
+				</td>
+				<td>
+					<%= item.updatedAt %>
+				</td>
+				<td>
+					<a href="/admin/show/<%= item.id %>">Show</a>
+				</td>
+				<td>
+					<a href="/admin/delete/<%= item.id %>">Delete</a>
+				</td>
+        <td>
+					<a href="/admin/edit/<%= item.id %>">Edit</a>
+				</td>
+			</tr>
+			<% }) %>
+	</tbody>
+</table>
+
+<% } %>
+
+<br>
+<a href="/admin/create">New</a>

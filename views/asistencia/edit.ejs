@@ -1,0 +1,48 @@
+<div class="">
+  <h1>New asistencia</h1>
+
+  <div class="body">
+    <form class="" action="/asistencia/update" method="post">
+      <input name="id" value="<%= element.id %>" hidden="true" required>
+        <div class="">
+          <label for="">createdAt</label>
+          <input type="number" name="createdAt" value="<%= element.createdAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">updatedAt</label>
+          <input type="number" name="updatedAt" value="<%= element.updatedAt %>" required="false">
+        </div>
+        <div class="">
+          <label for="">id</label>
+          <input type="number" name="id" value="<%= element.id %>" required="true">
+        </div>
+        <div class="">
+          <label for="">fecha</label>
+          <input type="text" name="fecha" value="<%= element.fecha %>" required="false">
+        </div>
+        <div class="">
+          <label for="">estado</label>
+          <input type="text" name="estado" value="<%= element.estado %>" required="false">
+        </div>
+        <div class="">
+          <label for="">hora</label>
+          <input type="text" name="hora" value="<%= element.hora %>" required="false">
+        </div>
+        <div class="">
+          <label for="">idMilitante</label>
+          <input type="number" name="idMilitante" value="<%= element.idMilitante %>" required="false">
+        </div>
+        <div class="">
+          <label for="">idPersonas</label>
+          <input type="text" name="idPersonas" value="<%= element.idPersonas %>" required="false">
+        </div>
+        <div class="">
+          <label for="">idEvento</label>
+          <input type="number" name="idEvento" value="<%= element.idEvento %>" required="false">
+        </div>
+      <button type="submit">Update asistencia</button>
+    </form>
+    <br />
+    <a href="/asistencia">Index</a>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<h1>Show usuario</h1>
+
+	<p>
+		<strong>createdAt:</strong>
+		<%= element.createdAt %>
+	</p>
+	<p>
+		<strong>updatedAt:</strong>
+		<%= element.updatedAt %>
+	</p>
+	<p>
+		<strong>id:</strong>
+		<%= element.id %>
+	</p>
+	<p>
+		<strong>username:</strong>
+		<%= element.username %>
+	</p>
+	<p>
+		<strong>password:</strong>
+		<%= element.password %>
+	</p>
+	<p>
+		<strong>rol:</strong>
+		<%= element.rol %>
+	</p>
+	<p>
+		<strong>idMilitante:</strong>
+		<%= element.idMilitante %>
+	</p>
+
+<br>
+<a href="/usuario/edit/<%= element.id %>">Edit</a>
+<a href="/usuario/create">New</a>
+<a href="/usuario">Back</a>

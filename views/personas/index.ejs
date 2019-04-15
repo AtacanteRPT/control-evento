@@ -1,0 +1,219 @@
+<h1>personas</h1>
+
+
+<% if (result.length == 0) { %>
+  <h4>
+    0 personas
+  </h4>
+<% } else { %>
+<table>
+	<thead>
+    <th>#</th>
+		<th>id</th>
+			<th>id</th>
+			<th>nombres</th>
+			<th>paterno</th>
+			<th>materno</th>
+			<th>ci</th>
+			<th>fecha_nacimiento</th>
+			<th>edad</th>
+			<th>edad_tipo</th>
+			<th>genero</th>
+			<th>circunscripcion</th>
+			<th>distrito_electoral</th>
+			<th>zona</th>
+			<th>recinto</th>
+			<th>mesa</th>
+			<th>celular1</th>
+			<th>celular2</th>
+			<th>celular3</th>
+			<th>telefono</th>
+			<th>segip</th>
+			<th>direccion</th>
+			<th>delegado</th>
+			<th>institucion_listas_enviadas</th>
+			<th>institucion_min_trabajo</th>
+			<th>ministerio_descentralizadas</th>
+			<th>tipo_delegado</th>
+			<th>distrito_politico</th>
+			<th>circunscripcion_delegado</th>
+			<th>distrito_delegado</th>
+			<th>zona_recinto_delegado</th>
+			<th>recinto_delegado</th>
+			<th>mesa_delegado</th>
+			<th>corresponde_mismo_recinto</th>
+			<th>asistencia</th>
+			<th>fotografia</th>
+			<th>qr</th>
+			<th>estado</th>
+			<th>recogido</th>
+			<th>recojo_fecha</th>
+			<th>foto_ci</th>
+			<th>entregado_por</th>
+			<th>habilitado</th>
+			<th>correo</th>
+
+		<th>created at</th>
+		<th>updated at</th>
+		<th colspan="3"></th>
+	</thead>
+
+	<tbody>
+		<% result.forEach((item, i) => { %>
+			<tr>
+				<td>
+					<%= (i + 1) %>
+				</td>
+				<td>
+					<%= item.id %>
+				</td>
+					<td>
+						<%= item.id %>
+					</td>
+					<td>
+						<%= item.nombres %>
+					</td>
+					<td>
+						<%= item.paterno %>
+					</td>
+					<td>
+						<%= item.materno %>
+					</td>
+					<td>
+						<%= item.ci %>
+					</td>
+					<td>
+						<%= item.fecha_nacimiento %>
+					</td>
+					<td>
+						<%= item.edad %>
+					</td>
+					<td>
+						<%= item.edad_tipo %>
+					</td>
+					<td>
+						<%= item.genero %>
+					</td>
+					<td>
+						<%= item.circunscripcion %>
+					</td>
+					<td>
+						<%= item.distrito_electoral %>
+					</td>
+					<td>
+						<%= item.zona %>
+					</td>
+					<td>
+						<%= item.recinto %>
+					</td>
+					<td>
+						<%= item.mesa %>
+					</td>
+					<td>
+						<%= item.celular1 %>
+					</td>
+					<td>
+						<%= item.celular2 %>
+					</td>
+					<td>
+						<%= item.celular3 %>
+					</td>
+					<td>
+						<%= item.telefono %>
+					</td>
+					<td>
+						<%= item.segip %>
+					</td>
+					<td>
+						<%= item.direccion %>
+					</td>
+					<td>
+						<%= item.delegado %>
+					</td>
+					<td>
+						<%= item.institucion_listas_enviadas %>
+					</td>
+					<td>
+						<%= item.institucion_min_trabajo %>
+					</td>
+					<td>
+						<%= item.ministerio_descentralizadas %>
+					</td>
+					<td>
+						<%= item.tipo_delegado %>
+					</td>
+					<td>
+						<%= item.distrito_politico %>
+					</td>
+					<td>
+						<%= item.circunscripcion_delegado %>
+					</td>
+					<td>
+						<%= item.distrito_delegado %>
+					</td>
+					<td>
+						<%= item.zona_recinto_delegado %>
+					</td>
+					<td>
+						<%= item.recinto_delegado %>
+					</td>
+					<td>
+						<%= item.mesa_delegado %>
+					</td>
+					<td>
+						<%= item.corresponde_mismo_recinto %>
+					</td>
+					<td>
+						<%= item.asistencia %>
+					</td>
+					<td>
+						<%= item.fotografia %>
+					</td>
+					<td>
+						<%= item.qr %>
+					</td>
+					<td>
+						<%= item.estado %>
+					</td>
+					<td>
+						<%= item.recogido %>
+					</td>
+					<td>
+						<%= item.recojo_fecha %>
+					</td>
+					<td>
+						<%= item.foto_ci %>
+					</td>
+					<td>
+						<%= item.entregado_por %>
+					</td>
+					<td>
+						<%= item.habilitado %>
+					</td>
+					<td>
+						<%= item.correo %>
+					</td>
+				<td>
+					<%= item.createdAt %>
+				</td>
+				<td>
+					<%= item.updatedAt %>
+				</td>
+				<td>
+					<a href="/personas/show/<%= item.id %>">Show</a>
+				</td>
+				<td>
+					<a href="/personas/delete/<%= item.id %>">Delete</a>
+				</td>
+        <td>
+					<a href="/personas/edit/<%= item.id %>">Edit</a>
+				</td>
+			</tr>
+			<% }) %>
+	</tbody>
+</table>
+
+<% } %>
+
+<br>
+<a href="/personas/create">New</a>

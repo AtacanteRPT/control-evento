@@ -7,7 +7,7 @@
 
 module.exports = {
 
-    index: function (req, res) {
+    index: function(req, res) {
         console.log('Entra por lo menos a inex de controlador')
 
         // Militante.find().then(datoMilitantes => {
@@ -20,45 +20,66 @@ module.exports = {
         //     res.serverError(err)
         // });
 
-        res.view('pages/homepage', {
-                    militantes: []
+        Evento.find().then(datoEventos => {
+
+            res.view('pages/homepage', {
+                militantes: [],
+                eventos: datoEventos,
+                idActualEvento: 0
+            })
+        }).catch(err => {
+            res.serverError(err);
         })
+
     },
-    buscarMilitante: function (req, res) {
-        var nombreCedula= req.body.nombre;
+    evento: function(req, res) {
+        sails.log('Cambio deEvento')
+        Evento.find().then(datoEventos => {
+
+            res.view('pages/homepage', {
+                militantes: [],
+                eventos: datoEventos,
+                idActualEvento: req.param('id')
+            })
+        }).catch(err => {
+            res.serverError(err);
+        })
+
+    },
+    buscarMilitante: function(req, res) {
+        var nombreCedula = req.body.nombre;
         console.log('NOMBRE a BUSCAR:', nombreCedula)
         Militante.find({
-            or: [
-                {
-                    nombre: { contains: nombreCedula }
-                },
-                {
-                    cedula:{ contains:nombreCedula}
-                }
-                
-            ]
-        }).then(datoMilitantes => res.json(datoMilitantes))
+                or: [{
+                        nombre: { contains: nombreCedula }
+                    },
+                    {
+                        cedula: { contains: nombreCedula }
+                    }
+
+                ]
+            }).then(datoMilitantes => res.json(datoMilitantes))
             .catch(err => {
                 res.serverError(err)
             });
     },
-    actualizarMilitante: function (req, res) {
+    actualizarMilitante: function(req, res) {
 
         console.log(req.body)
-        var militante={
-            nombre : req.body.nombre,
-            cedula : req.body.cedula,
-            celular:req.body.celular,
-            direccion : req.body.direccion
+        var militante = {
+            nombre: req.body.nombre,
+            cedula: req.body.cedula,
+            celular: req.body.celular,
+            direccion: req.body.direccion
         }
-        Militante.update(req.body.id,militante)
-        .then(datoMilitantes => res.redirect('/'))
+        Militante.update(req.body.id, militante)
+            .then(datoMilitantes => res.redirect('/'))
             .catch(err => {
                 res.serverError(err)
             });
     },
-    actMilitante:function(req,res){
-        sails.log('BODY:',req.body);
-        res.send('oso') 
+    actMilitante: function(req, res) {
+        sails.log('BODY:', req.body);
+        res.send('oso')
     }
 };

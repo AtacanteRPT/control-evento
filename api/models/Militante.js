@@ -8,15 +8,18 @@
 module.exports = {
 
     attributes: {
+        createdAt: { type: 'number', autoCreatedAt: true, },
+        updatedAt: { type: 'number', autoUpdatedAt: true, },
+        id: { type: 'number', autoIncrement: true, },
 
         paterno: { type: 'string' },
         materno: { type: 'string' },
         nombre: { type: 'string', required: true, },
 
-        cedula: { 
+        cedula: {
             columnType: 'varchar(185)',
-            type: 'string', 
-            unique:true 
+            type: 'string',
+            unique: true
         },
         celular: { type: 'string' },
         telefono: { type: 'string' },
@@ -25,8 +28,8 @@ module.exports = {
         institucion: {
             type: 'string'
         },
-// categoria:{
-// type:'string'},
+        // categoria:{
+        // type:'string'},
         email: {
             type: 'string'
         },
@@ -36,7 +39,7 @@ module.exports = {
         fechaNac: {
             type: 'ref',
             columnType: 'date',
-            required:false
+            required: false
         },
         remplazo: {
             type: 'string'
