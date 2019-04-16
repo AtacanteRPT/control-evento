@@ -8,13 +8,7 @@
 <main>
     <div class="row">
         <div class="col s12">
-            <select name="select" onchange="location=this.value">
-                <option > Seleccionar Evento </option>
-                <% eventos.forEach((evento, i)=>{ %> 
-                <option value="/controlador/evento/<%= evento.id %>">  <%= evento.nombre%> </option>
-                <% }) %> 
-            </select>
-            <a class="waves-effect waves-light btn" href="/asistencia/reporte_excel/<%=idActualEvento%>"><i class="material-icons right">archive</i>Reporte</a>
+        
 
             <div style="padding: 35px;" align="center" class="card">
                 <div class="row">
@@ -24,11 +18,11 @@
                         <!-- <b>Controlar Asistencia</b><br> -->
                         <b>COORDINACIÓN PLAN DE GOBIERNO </b>
                         <% var actualEvento = eventos.filter(dato=>dato.id==idActualEvento)%>
-                            <% if(idActualEvento!=0){ %>
-                                <H4>
-                                    <%= actualEvento[0].nombre%>
-                                </H4>
-                                <% }%>
+                        <% if(idActualEvento!=0){ %>
+                        <H4>
+                            <%= actualEvento[0].nombre%>
+                        </H4>
+                        <% }%>
                     </div>
                 </div>
 
@@ -375,6 +369,18 @@
 </div> -->
 <script type="text/javascript" src="/js/imprimir.js"></script>
 <script>
+      $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
     $('#carga').hide();
     $('#btnEncontrado').hide();
     $('.button-collapse').sideNav();
@@ -395,7 +401,7 @@
     // var auxAsistencias = votosTrue.length;
     function actualizarTabla(listaMilitantes) {
         $('#tablaMilitantes > tbody').empty()
-        listaMilitantes.forEach(function(militante, index) {
+        listaMilitantes.forEach(function (militante, index) {
             $('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
                 '<td>' + (index + 1) + '</td>' +
                 '<td>' + militante.nombre + '</td>' +
@@ -406,7 +412,7 @@
                 '<td>' + '<button class="waves-effect waves-light btn" onclick="actualizarMilitante(' + militante.id + ')" type="button"><i class="material-icons">edit</i></button>' + '</td>' +
                 '</tr>')
             $('#voto' + militante.id).attr('checked', militante.asistencia)
-            $('#voto' + militante.id).click(function() {
+            $('#voto' + militante.id).click(function () {
                 console.log($('#voto' + militante.id).prop('checked'))
                 $.ajax({
                     type: "PATCH",
@@ -416,7 +422,7 @@
                         hora: new Date().toTimeString()
                     },
                     dataType: "json",
-                    success: function(response) {
+                    success: function (response) {
                         //if request if made successfully then the response represent the data
                         console.log(response);
                         // auxMilitantes
@@ -460,7 +466,7 @@
         $('#inputDireccion2').val(militante[0].direccion)
         $('#inputSexo2').val(militante[0].sexo)
         $('#inputEmail2').val(militante[0].email)
-            //$("#inputSexo option[value='O']").attr('selected', 'selected');
+        //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
         // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
@@ -473,14 +479,14 @@
         $('#modal1').openModal();
     };
     var idMilitante = 0;
-    $('#inputCedula').keyup(function(params) {
+    $('#inputCedula').keyup(function (params) {
         var auxBuscar = $('#inputCedula').val()
 
         console.log('AUXBUSCAR:', auxBuscar)
-            // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
-            // .done(function( data ) {
-            //     console.log(data)
-            // });
+        // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
+        // .done(function( data ) {
+        //     console.log(data)
+        // });
         if (auxBuscar.length != 0) {
 
             if (auxBuscar.length > 5) {
@@ -492,18 +498,18 @@
                         nombre: auxBuscar
                     },
                     dataType: "json",
-                    success: function(militante) {
+                    success: function (militante) {
                         if (militante.length > 0) {
                             //if request if made successfully then the response represent the data
                             $('#inputNombre').val(militante[0].nombre)
                             $('#inputInstitucion').val(militante[0].institucion)
                             $('#inputCargo').val(militante[0].cargo)
-                                // $('#inputCedula').val(militante[0].cedula)
+                            // $('#inputCedula').val(militante[0].cedula)
                             $('#inputCelular').val(militante[0].celular)
                             $('#inputDireccion').val(militante[0].direccion)
                             $('#inputSexo').val(militante[0].sexo)
                             $('#inputEmail').val(militante[0].email)
-                                //$("#inputSexo option[value='O']").attr('selected', 'selected');
+                            //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
                             // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
@@ -513,18 +519,18 @@
                             idMilitante = militante[0].id;
                             $('#inputRem').val(militante[0].remplazo)
                             $('#inputCedulaRem').val(militante[0].ci_remplazo)
-                                // $('#btnAdicionar').hide();
+                            // $('#btnAdicionar').hide();
                             $('#btnEncontrado').show();
                         } else {
                             $('#inputNombre').val('')
                             $('#inputInstitucion').val('')
                             $('#inputCargo').val('')
-                                // $('#inputCedula').val(militante[0].cedula)
+                            // $('#inputCedula').val(militante[0].cedula)
                             $('#inputCelular').val('')
                             $('#inputDireccion').val('')
                             $('#inputSexo').val('')
                             $('#inputEmail').val('')
-                                //$("#inputSexo option[value='O']").attr('selected', 'selected');
+                            //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
                             // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
@@ -540,37 +546,37 @@
             $('#inputNombre').val('')
             $('#inputInstitucion').val('')
             $('#inputCargo').val('')
-                // $('#inputCedula').val(militante[0].cedula)
+            // $('#inputCedula').val(militante[0].cedula)
             $('#inputCelular').val('')
             $('#inputDireccion').val('')
             $('#inputSexo').val('')
             $('#inputEmail').val('')
-                //$("#inputSexo option[value='O']").attr('selected', 'selected');
+            //$("#inputSexo option[value='O']").attr('selected', 'selected');
 
             // $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
             //$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
             $('#inputFechaNac').val('')
-                //   $('#btnAdicionar').show();
+            //   $('#btnAdicionar').show();
             $('#btnEncontrado').hide();
 
         }
     })
 
-    $('#btnAddMilitante').click(function(params) {
+    $('#btnAddMilitante').click(function (params) {
         $('#modal2').openModal();
 
     })
 
     actualizarTabla(auxMilitantes);
-    $('#inputBuscar').keyup(function(event) {
+    $('#inputBuscar').keyup(function (event) {
         var auxBuscar = $('#inputBuscar').val()
 
         console.log('AUXBUSCAR:', auxBuscar)
-            // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
-            // .done(function( data ) {
-            //     console.log(data)
-            // });
+        // $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
+        // .done(function( data ) {
+        //     console.log(data)
+        // });
         if (auxBuscar.length != 0) {
 
             if (auxBuscar.length > 3) {
@@ -582,7 +588,7 @@
                         nombre: auxBuscar
                     },
                     dataType: "json",
-                    success: function(response) {
+                    success: function (response) {
                         //if request if made successfully then the response represent the data
                         console.log(response)
                         actualizarTabla(response)
@@ -597,7 +603,7 @@
 
     })
 
-    $('#btnEncontrado').click(function() {
+    $('#btnEncontrado').click(function () {
         $('#carga').show()
         var form = $('#formNuevo').serialize()
 
@@ -611,7 +617,7 @@
                 url: "/militante/" + idMilitante,
                 data: form,
                 dataType: "json",
-                success: function(response) {
+                success: function (response) {
                     //if request if made successfully then the response represent the data
                     // console.log(response);
                     // auxMilitantes
@@ -624,7 +630,7 @@
     })
 
 
-    $('#btnActualizar').click(function() {
+    $('#btnActualizar').click(function () {
         $('#carga').show()
         var form = $('#formActualizar').serialize()
         var id = $('#formActualizar').serializeArray()
@@ -636,7 +642,7 @@
             url: "/militante/" + id[0].value,
             data: form,
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 //if request if made successfully then the response represent the data
                 // console.log(response);
                 // auxMilitantes
@@ -649,7 +655,7 @@
 
     })
 
-    $('#btnImprimir').click(function() {
+    $('#btnImprimir').click(function () {
 
         // create the window before the callback
         // var win = window.open('', '_blank');
@@ -693,13 +699,13 @@
             nuevoCargo = $('#inputCargo').val();
         }
         var part = [{
-                nombre: nuevoNombre.toUpperCase(),
-                cargo: nuevoCargo,
-                categoria: $('#inputInstitucion').val().toUpperCase()
-            }]
-            // { nombre: 'RICARDO OSO', categoria: 'CAT 2' },
-            // { nombre: 'CARLOS TORREZ', categoria: 'CAT 3' },
-            // { nombre: 'JOSE LOPEZ', categoria: 'CAT 4' }];
+            nombre: nuevoNombre.toUpperCase(),
+            cargo: nuevoCargo,
+            categoria: $('#inputInstitucion').val().toUpperCase()
+        }]
+        // { nombre: 'RICARDO OSO', categoria: 'CAT 2' },
+        // { nombre: 'CARLOS TORREZ', categoria: 'CAT 3' },
+        // { nombre: 'JOSE LOPEZ', categoria: 'CAT 4' }];
 
 
         // doc.setFontType("");
@@ -744,7 +750,7 @@
 
     })
 
-    $('#btnReporte').click(function() {
+    $('#btnReporte').click(function () {
         var doc = new jsPDF();
         // You can use html:
         //doc.autoTable({html: '#my-table'});
@@ -757,7 +763,7 @@
         var listaAsistentesImprimir = [];
         var listaFaltantesImprimir = [];
 
-        auxMilitantes.forEach(function(dato) {
+        auxMilitantes.forEach(function (dato) {
 
             if (dato.asistencia == true) {
                 var vector = [dato.nombre, dato.cargo, dato.institucion, dato.cedula, dato.celular, dato.hora.split(' ')[0]]
@@ -803,7 +809,7 @@
     });
 
 
-    $('#btnReporteExcel').click(function() {
+    $('#btnReporteExcel').click(function () {
 
         var actualEvento = auxEventos.filter(dato => dato.id == idEventoActual)
 
@@ -816,7 +822,7 @@
 
             },
             dataType: "json",
-            success: function(data, status, xhr) {
+            success: function (data, status, xhr) {
 
                 window.URL.revokeObjectURL(url);
 
@@ -824,7 +830,7 @@
         });
     });
 
-    $('#btnReporteF').click(function() {
+    $('#btnReporteF').click(function () {
         var doc = new jsPDF();
         // You can use html:
         //doc.autoTable({html: '#my-table'});
@@ -835,7 +841,7 @@
         var listaAsistentesImprimir = [];
         var listaFaltantesImprimir = [];
 
-        auxMilitantes.forEach(function(dato) {
+        auxMilitantes.forEach(function (dato) {
 
             if (dato.asistencia != true) {
                 var vector = [dato.nombre, dato.remplazo, dato.cargo, dato.institucion, dato.cedula, dato.celular]

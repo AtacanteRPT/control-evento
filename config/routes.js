@@ -25,7 +25,7 @@ module.exports.routes = {
     'get /': 'PublicoController.index',
     // 'get /': 'AuthController.login',
     'get /controlador/evento/:id': 'ControladorController.evento',
-    'get /asistencia/reporte_excel/:idActualEvento': 'AsistenciaController.reporte_excel',
+    'get /asistencia/reporte_excel/:id': 'AsistenciaController.reporte_excel',
 
 
     'get /evento/edit/:id': 'EventoController.edit',

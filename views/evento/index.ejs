@@ -1,55 +1,61 @@
 <main>
     <div class="row">
         <div class="col s12">
+            <div style="padding: 35px;" align="left" class="card">
 
-            <h3>Eventos</h3>
+                <h3>Eventos</h3>
 
 
-            <% if (result.length == 0) { %>
+                <% if (result.length == 0) { %>
                 <h4>
                     0 evento
                 </h4>
                 <% } else { %>
-                    <table class="highlight">
-                        <thead>
-                            <th>#</th>
-                            <th>estado</th>
+                <table class="highlight striped">
+                    <thead>
+                        <th>#</th>
+                        <th>estado</th>
 
-                            <th>nombre</th>
-                            <th>observacion</th>
-                            <th>fecha</th>
-                            <th>hora</th>
+                        <th>nombre</th>
+                        <th>observacion</th>
+                        <th>fecha</th>
+                        <th>hora</th>
 
-                            <!--
+                        <!--
                             <th>Creado</th>
                             <th>Actualizado</th>-->
-                            <th colspan="2"></th>
-                        </thead>
+                        <th colspan="2"></th>
+                    </thead>
 
-                        <tbody>
-                            <% result.forEach((item, i) => { %>
-                                <tr>
-                                    <td>
-                                        <%= (i + 1) %>
-                                    </td>
-                                    <td>
-                                        <%= item.estado %>
+                    <tbody>
+                        <% result.forEach((item, i) => { %>
+                        <tr>
+                            <td>
+                                <%= (i + 1) %>
+                            </td>
+                            <td>
+                                <% if(item.estado=='activo'){ %>
+                                <h5>ACTIVO</h5>
+                                <%}else{%>
+                                <h6>PASADO</h6>
+                                <%}%>
+                                       
                                     </td>
 
                                     <td>
                                         <%= item.nombre %>
-                                    </td>
+                            </td>
 
-                                    <td>
-                                        <%= item.observacion %>
-                                    </td>
-                                    <td>
-                                        <%= item.fecha %>
-                                    </td>
-                                    <td>
-                                        <%= item.hora %>
-                                    </td>
-                                    <!--<td>
+                            <td>
+                                <%= item.observacion %>
+                            </td>
+                            <td>
+                                <%= item.fecha %>
+                            </td>
+                            <td>
+                                <%= item.hora %>
+                            </td>
+                            <!--<td>
                                         <%  var fecha = new Date(item.createdAt)%>
                                             <%= fecha.toLocaleDateString()  %>
                                     </td>
@@ -57,24 +63,28 @@
                                         <%  fecha = new Date(item.updatedAt)%>
                                             <%= fecha.toLocaleDateString()  %>
                                     </td>-->
-                                    <!--<td>
+                            <!--<td>
                                         <a href="/evento/show/<%= item.id %>">Show</a>
                                     </td>-->
-                                    <td>
-                                        <a class="waves-effect waves-light btn red" href="/evento/delete/<%= item.id %>"><i class="medium material-icons">delete</i></a>
-                                    </td>
-                                    <td>
-                                        <a class="waves-effect waves-light btn green" href="/evento/edit/<%= item.id %>"><i class="medium material-icons">edit</i></a>
-                                    </td>
-                                </tr>
-                                <% }) %>
-                        </tbody>
-                    </table>
+                            <td>
+                                <a class="waves-effect waves-light btn red" href="/evento/delete/<%= item.id %>"><i
+                                        class="medium material-icons">delete</i></a>
+                            </td>
+                            <td>
+                                <a class="waves-effect waves-light btn green" href="/evento/edit/<%= item.id %>"><i
+                                        class="medium material-icons">edit</i></a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
 
-                    <% } %>
+                <% } %>
 
-                        <br>
-                        <a class="btn-floating btn-large waves-effect waves-light red" href="/evento/crear"><i class="material-icons">add</i></a>
+                <br>
+                <a class="btn-floating btn-large waves-effect waves-light red" href="/evento/crear"><i
+                        class="material-icons">add</i></a>
+            </div>
         </div>
     </div>
 

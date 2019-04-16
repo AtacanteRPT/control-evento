@@ -35,7 +35,6 @@ module.exports = {
     evento: function(req, res) {
         sails.log('Cambio deEvento')
         Evento.find().then(datoEventos => {
-
             res.view('pages/homepage', {
                 militantes: [],
                 eventos: datoEventos,

@@ -237,7 +237,9 @@ module.exports = {
         console.log('Reporte EXCEL')
         try {
             // var nombreEvento = req.body.nombreEvento;
-            var idEvento = req.param('idActualEvento');
+            var idEvento = req.param('id');
+
+            var datoEvento = await Evento.findOne(idEvento);
 
             var datoAsistencias = await Asistencia.find({
                 idEvento: idEvento
@@ -246,6 +248,7 @@ module.exports = {
 
             var dataset = [];
             dataset = datoAsistencias.map(dato => dato.idPersona)
+
 
             console.log('DATASET', dataset)
                 // You can define styles as json object
@@ -332,7 +335,7 @@ module.exports = {
                     { value: 'GATO', style: styles.headerDark },
                     { value: 'PERRO', style: styles.headerDark }
                 ],
-                [{ value: 'COORDINACIÓN PLAN DE GOBIERNO ' + datoAsistencias[0].nombre, style: styles.cellTitulo }], // <-- It can be only values
+                [{ value: 'COORDINACIÓN PLAN DE GOBIERNO ' + datoEvento.nombre, style: styles.cellTitulo }], // <-- It can be only values
                 [{ value: 'Total asistentes : ' + datoAsistencias.length, style: styles.cellTitulo }]
             ];
 
@@ -348,6 +351,28 @@ module.exports = {
                         return count;
                     },
                     width: 30 // <- width in pixels
+                },
+                paterno : { // <- the key should match the actual data key
+                    displayName: 'Paterno', // <- Here you specify the column header
+                    headerStyle: styles.cellTitulo, // <- Header style
+                    cellStyle: styles.cellNormal,
+                    // cellStyle: function (value, row) { // <- style renderer function
+                    //     // if the status is 1 then color in green else color in red
+                    //     // Notice how we use another cell value to style the current one
+                    //     return (row.status_id == 1) ? styles.cellGreen : { fill: { fgColor: { rgb: 'FFFF0000' } } }; // <- Inline cell style is possible 
+                    // },
+                    width: 100 // <- width in pixels
+                },
+                materno: { // <- the key should match the actual data key
+                    displayName: 'Materno', // <- Here you specify the column header
+                    headerStyle: styles.cellTitulo, // <- Header style
+                    cellStyle: styles.cellNormal,
+                    // cellStyle: function (value, row) { // <- style renderer function
+                    //     // if the status is 1 then color in green else color in red
+                    //     // Notice how we use another cell value to style the current one
+                    //     return (row.status_id == 1) ? styles.cellGreen : { fill: { fgColor: { rgb: 'FFFF0000' } } }; // <- Inline cell style is possible 
+                    // },
+                    width: 100 // <- width in pixels
                 },
                 nombres: { // <- the key should match the actual data key
                     displayName: 'Nombre', // <- Here you specify the column header
@@ -384,9 +409,9 @@ module.exports = {
             }
 
             const merges = [
-                { start: { row: 1, column: 1 }, end: { row: 1, column: 5 } },
-                { start: { row: 2, column: 1 }, end: { row: 2, column: 5 } },
-                { start: { row: 3, column: 1 }, end: { row: 3, column: 5 } },
+                { start: { row: 1, column: 1 }, end: { row: 1, column: 7 } },
+                { start: { row: 2, column: 1 }, end: { row: 2, column: 7 } },
+                { start: { row: 3, column: 1 }, end: { row: 3, column: 7 } },
                 // { start: { row: 2, column: 6 }, end: { row: 2, column: 10 } }
             ]
 
@@ -400,7 +425,7 @@ module.exports = {
                 }]
             );
             console.log('LLEGA BOT')
-            res.attachment('report.xlsx'); // This is sails.js specific (in general you need to set headers)
+            res.attachment(datoEvento.nombre+'_reporte.xlsx'); // This is sails.js specific (in general you need to set headers)
             return res.send(report);
         } catch (error) {
             res.serverError(error)
@@ -408,5 +433,17 @@ module.exports = {
 
 
     },
+
+    informe: async function(req,res){
+        try {
+            
+            var datoEventos = await Evento.find();
+            res.view('pages/informe',{
+                eventos:datoEventos
+            })
+        } catch (error) {
+            res.serverError(error);
+        }
+    }
 
 };
