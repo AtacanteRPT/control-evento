@@ -4,6 +4,7 @@
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.0.13/dist/jspdf.plugin.autotable.js"></script>-->
+<script type="text/javascript" src="/dependencies/sails.io.js"></script> 
 
 <main>
     <div class="row">
@@ -12,6 +13,8 @@
 
             <div style="padding: 35px;" align="center" class="card">
                 <div class="row">
+
+                        <h3>Asistentes #</h3> <h1 id="nroAsistentes"></h1>
 
                     <div class="center card-title">
 
@@ -25,6 +28,49 @@
                         <% }%>
                     </div>
                 </div>
+                <ul class="collection">
+                        <li class="collection-item avatar">
+                          <img src="images/yuna.jpg" alt="" class="circle">
+                          <span class="title">Title</span>
+                          <p>First Line <br>
+                             Second Line
+                          </p>
+                          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                      </ul>
+                                
+       <script>
+
+
+        // Use `io.socket.on()` to listen for the 'hello' event:
+        io.socket.get('/militante/asistencia', function gotResponse(data, jwRes) {
+
+        console.log('Server responded with status code ' + jwRes.statusCode + ' and data: ', data);
+        });
+        io.socket.on('asistencia', function (data) {
+        console.log('Socket `' + data + '` joined the party!');
+        $('#nroAsistentes').text(data.militante);
+
+
+        });
+        // io.socket.on('hello', function (broadcastedData){
+        //   console.log(data.howdy);
+        //   console.log(broadcastedData)
+        //   // => 'hi there!'
+        // }
+    </script>
+ 
+                
+
+
+
+
+
+
+
+
+
+
 
                 <div class="row">
                     <div class="col s12">
@@ -885,10 +931,9 @@
     });
 </script>
 
-<!-- 
-<script type="text/javascript" src="/dependencies/sails.io.js"></script> 
 
- 
+
+<!--  
 <script type="text/javascript">
     io.socket.on('militante', function osoSubscribe(data) {
         var auxMilitante = data.data;

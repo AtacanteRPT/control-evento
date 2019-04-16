@@ -16,8 +16,10 @@ module.exports = {
 
         var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
         console.log('QR:', req.body)
-        Personas.find(baseidentificacion).exec(function(err, datoMilitante) {
+        Personas.find({id:baseidentificacion}).exec(function(err, datoMilitante) {
             // if(err) return res.server.error;
+            if (datoMilitante.length > 0) {
+
             var auxAsistencia = {
                 fecha: fecha,
                 estado: 1,
@@ -25,8 +27,8 @@ module.exports = {
                 idEvento: idEvento,
                 hora: moment().tz("America/La_Paz").format()
             }
-            Asistencia.findOrCreate({ idPersona: datoMilitante[0].id, idEvento: idEvento }, auxAsistencia).exec(function(err, datoAsistencia) {
-                if (datoMilitante.length > 0) {
+            Asistencia.findOrCreate({ idPersona: datoMilitante[0].id, idEvento: idEvento }, auxAsistencia).exec(function(err, datoAsistencia,wasCreated) {
+                
                     var auxPersona = {
                         nombre: datoMilitante[0].nombres,
                         paterno: datoMilitante[0].paterno,
@@ -38,14 +40,17 @@ module.exports = {
                         recinto: datoMilitante[0].recinto
                     }
                     res.json(auxPersona)
-                } else {
-                    res.json({
-                        nombre: 'NO ESTA REGISTRADO',
-                        img: ''
-                    })
-                }
-            });
 
+                    console.log(wasCreated)
+                    sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona }, req);
+
+            });
+        } else {
+            res.json({
+                nombre: 'NO ESTA REGISTRADO',
+                img: ''
+            })
+        }
         })
     },
 
