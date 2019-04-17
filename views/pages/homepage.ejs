@@ -30,7 +30,7 @@
 
                 <div class="row">
                     <% eventos.forEach((evento, i) => { %>
-
+                        <%if(evento.estado=='activo'){%>
                         <div align="center" class="col s12 m6">
                             <div class="card-panel">
                                 <h5 >
@@ -44,8 +44,9 @@
                             </div>
 
                         </div>
+                        <%}%>
 
-                        <div class="col s12 m6">
+                        <!-- <div class="col s12 m6">
 
                             <ul class="collection">
                                 <li class="collection-item avatar">
@@ -59,7 +60,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <% }) %>
 
                 </div>
