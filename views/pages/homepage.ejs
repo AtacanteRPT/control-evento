@@ -4,63 +4,95 @@
 
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script src="https://unpkg.com/jspdf-autotable@3.0.13/dist/jspdf.plugin.autotable.js"></script>-->
-<script type="text/javascript" src="/dependencies/sails.io.js"></script> 
+<script type="text/javascript" src="/dependencies/sails.io.js"></script>
 
 <main>
     <div class="row">
         <div class="col s12">
-        
 
-            <div style="padding: 35px;" align="center" class="card">
+
+            <div style="padding: 35px;"  class="card">
                 <div class="row">
 
-                        <h3>Asistentes #</h3> <h1 id="nroAsistentes"></h1>
 
-                    <div class="center card-title">
+                    <div  class="center card-title">
 
                         <!-- <b>Controlar Asistencia</b><br> -->
                         <b>COORDINACIÓN PLAN DE GOBIERNO </b>
                         <% var actualEvento = eventos.filter(dato=>dato.id==idActualEvento)%>
-                        <% if(idActualEvento!=0){ %>
-                        <H4>
-                            <%= actualEvento[0].nombre%>
-                        </H4>
-                        <% }%>
+                            <% if(idActualEvento!=0){ %>
+                                <H4>
+                                    <%= actualEvento[0].nombre%>
+                                </H4>
+                                <% }%>
                     </div>
                 </div>
-                <ul class="collection">
-                        <li class="collection-item avatar">
-                          <img src="images/yuna.jpg" alt="" class="circle">
-                          <span class="title">Title</span>
-                          <p>First Line <br>
-                             Second Line
-                          </p>
-                          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                        </li>
-                      </ul>
-                                
-       <script>
+
+                <div class="row">
+                    <% eventos.forEach((evento, i) => { %>
+
+                        <div align="center" class="col s12 m6">
+                            <div class="card-panel">
+                                <h5 >
+                                    <%=evento.nombre%>
+                                </h5>
+
+                                <h3>Asistentes </h3>
+                                <h1 id="nroAsistentes<%= evento.id%>">
+                                    <%=evento.nroAsistentes%>
+                                </h1>
+                            </div>
+
+                        </div>
+
+                        <div class="col s12 m6">
+
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <img src="images/yuna.jpg" alt="" class="circle">
+                                    <span class="title">Title</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <a href="#!" class="secondary-content">
+                                        <i class="material-icons">grade</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <% }) %>
+
+                </div>
 
 
-        // Use `io.socket.on()` to listen for the 'hello' event:
-        io.socket.get('/militante/asistencia', function gotResponse(data, jwRes) {
 
-        console.log('Server responded with status code ' + jwRes.statusCode + ' and data: ', data);
-        });
-        io.socket.on('asistencia', function (data) {
-        console.log('Socket `' + data + '` joined the party!');
-        $('#nroAsistentes').text(data.militante);
+                <script>
 
 
-        });
+                    // Use `io.socket.on()` to listen for the 'hello' event:
+                    io.socket.get('/militante/asistencia', function gotResponse(data, jwRes) {
+                        $('#nroAsistentes').text(data.militante);
+                        console.log('Server responded with status code ' + jwRes.statusCode + ' and data: ', data);
+                    });
+                    io.socket.on('asistencia', function (data) {
+                        console.log('Socket `' + data + '` joined the party!');
+                       // $('#nroAsistentes').text(nroAsistentes ++);
+                        auxEventos.forEach((elemnto,i)=>{
+                            if(data.idEvento==elemnto.id){
+                            auxEventos[i].nroAsistentes +=1; 
+                                $('#nroAsistentes'+elemnto.id).text(auxEventos[i].nroAsistentes);
+                            }
+                        },this)
+
+                    });
         // io.socket.on('hello', function (broadcastedData){
         //   console.log(data.howdy);
         //   console.log(broadcastedData)
         //   // => 'hi there!'
         // }
-    </script>
- 
-                
+                </script>
+
+
 
 
 
@@ -75,11 +107,10 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">search</i>
-                                <input type="text" id="inputBuscar" class="autocomplete">
-                                <label for="inputBuscar">Buscar a militante</label>
+                            <div class="militantes">
+
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -415,17 +446,17 @@
 </div> -->
 <script type="text/javascript" src="/js/imprimir.js"></script>
 <script>
-      $('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false, // Displays dropdown below the button
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false // Stops event propagation
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: false, // Displays dropdown below the button
+        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
     }
-  );
+    );
 
     $('#carga').hide();
     $('#btnEncontrado').hide();
@@ -443,8 +474,19 @@
     var auxEventos = <%- JSON.stringify(eventos) %>;
 
 
+
     // var votosTrue = auxMilitantes.filter(auxVoto => auxVoto.voto == true);
     // var auxAsistencias = votosTrue.length;
+var llegadasMilitante = [];
+function llegadaMilitante(militante){
+
+    // <div class="input-field col s12">
+    //         <i class="material-icons prefix">search</i>
+    //         <input type="text" id="inputBuscar" class="autocomplete">
+    //         <label for="inputBuscar">Buscar a militante</label>
+    //     </div>
+}
+
     function actualizarTabla(listaMilitantes) {
         $('#tablaMilitantes > tbody').empty()
         listaMilitantes.forEach(function (militante, index) {

@@ -42,7 +42,10 @@ module.exports = {
                     res.json(auxPersona)
 
                     console.log(wasCreated)
-                    sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona }, req);
+                    if(wasCreated){
+
+                        sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona,idEvento:idEvento }, req);
+                    }
 
             });
         } else {

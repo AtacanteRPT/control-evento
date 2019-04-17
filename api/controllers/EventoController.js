@@ -13,6 +13,12 @@ module.exports = {
             });
         });
     },
+    activos:  function(req, res, next) {
+        Evento.find({estado:'activo'}).exec(function(err, list) {
+            if (err) return Error('Error');
+            return res.json(list)
+        });
+    },
 
     show: function(req, res, next) {
         Evento.findOneById(req.param('id'), function Founded(err, value) {
