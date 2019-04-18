@@ -35,6 +35,9 @@ module.exports = {
             required: false,
             allowNull: true
         },
+        credencial:{
+            type:'boolean'
+        }
 
     }
 

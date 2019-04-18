@@ -20,7 +20,7 @@ module.exports = {
         //     res.serverError(err)
         // });
         var datoEventos = await Evento.find({ estado: 'activo' });
-        console.log('DATOEVENTOS:',datoEventos)
+        console.log('DATOEVENTOS:', datoEventos)
         var eventos = [];
         for (let index = 0; index < datoEventos.length; index++) {
 
@@ -54,12 +54,12 @@ module.exports = {
     buscarMilitante: function (req, res) {
         var nombreCedula = req.body.nombre;
         console.log('NOMBRE a BUSCAR:', nombreCedula)
-        Militante.find({
+        Personas.find({
             or: [{
-                nombre: { contains: nombreCedula }
+                nombres: { contains: nombreCedula }
             },
             {
-                cedula: { contains: nombreCedula }
+                ci: { contains: nombreCedula }
             }
 
             ]
@@ -86,5 +86,28 @@ module.exports = {
     actMilitante: function (req, res) {
         sails.log('BODY:', req.body);
         res.send('oso')
+    },
+    buscarMilitanteCi: function (req, res) {
+        var nombreCedula = req.param('ci');
+        var paramIdEvento = req.param('idEvento')
+        console.log('NOMBRE a BUSCAR CI:', nombreCedula)
+        Personas.find(
+            { ci: nombreCedula }
+        ).then(datoMilitantes => {
+            if (datoMilitantes.length > 0) {
+                return Asistencia.find({ idPersona: datoMilitantes[0].id, idEvento: paramIdEvento })
+            }else{
+                return res.send([]);
+            }
+        }
+        ).then(datoAsistencia => {
+            if(datoAsistencia.length > 0){
+                return 
+            }
+
+        })
+            .catch(err => {
+                res.serverError(err)
+            });
     }
 };

@@ -53,6 +53,9 @@ module.exports = {
         sexo: {
             type: 'string'
         },
+        // militancia: {
+        //     type: 'boolean'
+        // },
         // usuario:{
         //   collection:'usuario',
         //   via:'idMilitante'

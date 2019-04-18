@@ -5,16 +5,27 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 module.exports = {
-    index: function(req, res, next) {
-        Controla.find().exec(function(err, list) {
-            if (err) return Error('Error');
-            return res.view({
-                result: list
-            });
+    index: async function (req, res, next) {
+
+        var datoEventos = await Evento.find({ estado: 'activo' });
+        console.log('DATOEVENTOS:', datoEventos)
+        var eventos = [];
+        for (let index = 0; index < datoEventos.length; index++) {
+
+            var auxContador = await Asistencia.count({ idEvento: datoEventos[index].id });
+            datoEventos[index].nroAsistentes = auxContador;
+            eventos.push(datoEventos[index]);
+        }
+
+        console.log('EVENTOS:', eventos)
+        res.view({
+            militantes: [],
+            eventos: eventos,
+            idActualEvento: 0,
         });
     },
 
-    show: function(req, res, next) {
+    show: function (req, res, next) {
         Controla.findOneById(req.param('id'), function Founded(err, value) {
             if (err) {
                 return next(err);
@@ -25,7 +36,7 @@ module.exports = {
         });
     },
 
-    edit: function(req, res, next) {
+    edit: function (req, res, next) {
         Controla.findOne(req.param('id'), function Founded(err, value) {
             if (err) {
                 return next(err);
@@ -36,7 +47,7 @@ module.exports = {
         });
     },
 
-    update: function(req, res, next) {
+    update: function (req, res, next) {
         Controla.update(req.param('id'), req.body, function Update(err, value) {
             if (err) {
                 return next(err);
@@ -45,7 +56,7 @@ module.exports = {
         });
     },
 
-    delete: function(req, res, next) {
+    delete: function (req, res, next) {
         Controla.destroy(req.param('id'), function Update(err, value) {
             if (err) {
                 return next(err);

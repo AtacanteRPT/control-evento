@@ -8,27 +8,28 @@ const excel = require('node-excel-export');
 var moment = require('moment-timezone');
 
 module.exports = {
-    mostrar: function(req, res) {
+    mostrar: function (req, res) {
         var hoy = new Date();
         var baseidentificacion = req.param('baseidentificacion')
         var idEvento = req.param('idEvento')
-            //console.log("CLIENTE : ", req.param("baseidentificacion"))
+        //console.log("CLIENTE : ", req.param("baseidentificacion"))
 
         var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
         console.log('QR:', req.body)
-        Personas.find({id:baseidentificacion}).exec(function(err, datoMilitante) {
+        Personas.find({ id: baseidentificacion }).exec(function (err, datoMilitante) {
             // if(err) return res.server.error;
             if (datoMilitante.length > 0) {
 
-            var auxAsistencia = {
-                fecha: fecha,
-                estado: 1,
-                idPersona: datoMilitante[0].id,
-                idEvento: idEvento,
-                hora: moment().tz("America/La_Paz").format()
-            }
-            Asistencia.findOrCreate({ idPersona: datoMilitante[0].id, idEvento: idEvento }, auxAsistencia).exec(function(err, datoAsistencia,wasCreated) {
-                
+                var auxAsistencia = {
+                    fecha: fecha,
+                    estado: 1,
+                    credencial: true,
+                    idPersona: datoMilitante[0].id,
+                    idEvento: idEvento,
+                    hora: moment().tz("America/La_Paz").format()
+                }
+                Asistencia.findOrCreate({ idPersona: datoMilitante[0].id, idEvento: idEvento }, auxAsistencia).exec(function (err, datoAsistencia, wasCreated) {
+
                     var auxPersona = {
                         nombre: datoMilitante[0].nombres,
                         paterno: datoMilitante[0].paterno,
@@ -42,29 +43,64 @@ module.exports = {
                     res.json(auxPersona)
 
                     console.log(wasCreated)
-                    if(wasCreated){
+                    if (wasCreated) {
 
-                        sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona,idEvento:idEvento }, req);
+                        sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona, idEvento: idEvento }, req);
                     }
 
-            });
-        } else {
-            res.json({
-                nombre: 'NO ESTA REGISTRADO',
-                img: ''
-            })
-        }
+                });
+            } else {
+                res.json({
+                    nombre: 'NO ESTA REGISTRADO',
+                    img: ''
+                })
+            }
         })
     },
+    marcar: function (req, res) {
 
-    reporte: async function(req, res) {
+        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+
+        var paramIdEvento = req.param('idEvento');
+        var paramIdPersona = req.param('idPersona');
+        var paramNombre = req.param('nombre');
+        var paramPaterno = req.param('paterno');
+        var paramMaterno = req.param('materno');
+
+        var auxAsistencia = {
+            fecha: fecha,
+            estado: 1,
+            credencial: false,
+            idPersona: paramIdPersona,
+            idEvento: paramIdEvento,
+            hora: moment().tz("America/La_Paz").format()
+        }
+        Asistencia.findOrCreate({ idPersona: paramIdPersona, idEvento: paramIdEvento }, auxAsistencia).exec(function (err, datoAsistencia, esCreado) {
+
+            var auxPersona = { 
+            }
+            
+            console.log(esCreado)
+            if (esCreado) {
+                auxPersona.msg='Asistencia para'+ paramNombre+" "+paramPaterno+" "+paramMaterno
+                sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona, idEvento: idEvento }, req);
+            }else{
+                auxPersona.msg='Actualizo a'+ paramNombre+" "+paramPaterno+" "+paramMaterno
+
+            }
+            res.json(auxPersona)
+
+        });
+    },
+
+    reporte: async function (req, res) {
         const excel = require('node-excel-export');
         var datoMilitantes = await Militante.find({ asistencia: true });
 
         console.log('MILITANTES', datoMilitantes)
         var dataset = [];
         dataset = datoMilitantes
-            // You can define styles as json object
+        // You can define styles as json object
         const styles = {
             headerDark: {
                 fill: {
@@ -159,7 +195,7 @@ module.exports = {
                 displayName: 'Nro', // <- Here you specify the column header
                 headerStyle: styles.cellTitulo, // <- Header style
                 cellStyle: styles.cellNormal,
-                cellFormat: function(value, row) { // <- Renderer function, you can access also any row.property
+                cellFormat: function (value, row) { // <- Renderer function, you can access also any row.property
                     count++;
                     return count;
                 },
@@ -241,7 +277,7 @@ module.exports = {
 
     },
 
-    reporte_excel: async function(req, res) {
+    reporte_excel: async function (req, res) {
         console.log('Reporte EXCEL')
         try {
             // var nombreEvento = req.body.nombreEvento;
@@ -259,7 +295,7 @@ module.exports = {
 
 
             console.log('DATASET', dataset)
-                // You can define styles as json object
+            // You can define styles as json object
             const styles = {
                 headerDark: {
                     fill: {
@@ -354,13 +390,13 @@ module.exports = {
                     displayName: 'Nro', // <- Here you specify the column header
                     headerStyle: styles.cellTitulo, // <- Header style
                     cellStyle: styles.cellNormal,
-                    cellFormat: function(value, row) { // <- Renderer function, you can access also any row.property
+                    cellFormat: function (value, row) { // <- Renderer function, you can access also any row.property
                         count++;
                         return count;
                     },
                     width: 30 // <- width in pixels
                 },
-                paterno : { // <- the key should match the actual data key
+                paterno: { // <- the key should match the actual data key
                     displayName: 'Paterno', // <- Here you specify the column header
                     headerStyle: styles.cellTitulo, // <- Header style
                     cellStyle: styles.cellNormal,
@@ -433,7 +469,7 @@ module.exports = {
                 }]
             );
             console.log('LLEGA BOT')
-            res.attachment(datoEvento.nombre+'_reporte.xlsx'); // This is sails.js specific (in general you need to set headers)
+            res.attachment(datoEvento.nombre + '_reporte.xlsx'); // This is sails.js specific (in general you need to set headers)
             return res.send(report);
         } catch (error) {
             res.serverError(error)
@@ -442,12 +478,12 @@ module.exports = {
 
     },
 
-    informe: async function(req,res){
+    informe: async function (req, res) {
         try {
-            
+
             var datoEventos = await Evento.find();
-            res.view('pages/informe',{
-                eventos:datoEventos
+            res.view('pages/informe', {
+                eventos: datoEventos
             })
         } catch (error) {
             res.serverError(error);
