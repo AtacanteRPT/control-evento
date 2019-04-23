@@ -1,9 +1,5 @@
-/**
- * AsisteController
- *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
+
+
 const excel = require('node-excel-export');
 var moment = require('moment-timezone');
 
@@ -58,8 +54,9 @@ module.exports = {
         })
     },
     marcar: function (req, res) {
+        var hoy = new Date();
 
-        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
 
         var paramIdEvento = req.param('idEvento');
         var paramIdPersona = req.param('idPersona');
@@ -75,21 +72,34 @@ module.exports = {
             idEvento: paramIdEvento,
             hora: moment().tz("America/La_Paz").format()
         }
-        Asistencia.findOrCreate({ idPersona: paramIdPersona, idEvento: paramIdEvento }, auxAsistencia).exec(function (err, datoAsistencia, esCreado) {
+        console.log('Apunto de CREAR', req.body)
+        var auxPersona = {};
 
-            var auxPersona = { 
-            }
-            
+        Asistencia.findOrCreate({ idPersona: paramIdPersona, idEvento: paramIdEvento }, auxAsistencia).exec(function (err, datoAsistencia, esCreado) {
+            if(err) return res.serverError(err);
             console.log(esCreado)
+
+
             if (esCreado) {
-                auxPersona.msg='Asistencia para'+ paramNombre+" "+paramPaterno+" "+paramMaterno
-                sails.sockets.broadcast('salaAsistencia', 'asistencia', { militante: auxPersona, idEvento: idEvento }, req);
+                auxPersona.msg='Asistencia para '+ paramNombre+" "+paramPaterno+" "+paramMaterno
+                // sails.sockets.broadcast('salaAsistencia', 'asistencia', { asistencia:true }, req);
             }else{
                 auxPersona.msg='Actualizo a'+ paramNombre+" "+paramPaterno+" "+paramMaterno
-
             }
-            res.json(auxPersona)
 
+            res.send(auxPersona)
+
+        });
+    },
+    desmarcar: function (req, res) {
+
+        var paramIdAsistencia = req.param('idAsistencia');
+        var auxPersona = {};
+        Asistencia.destroy(paramIdAsistencia).exec(function(err,datoAsistencia){
+           auxPersona.msg='Se Quitó la asistencia';
+           console.log('Se Destruyo registro')
+           res.send(auxPersona);
+            // sails.sockets.broadcast('salaAsistencia', 'asistencia', { asistencia:false }, req);
         });
     },
 

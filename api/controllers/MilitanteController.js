@@ -5,13 +5,13 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 var moment = require('moment-timezone');
+const uuidv1 = require('uuid/v1');
 
 module.exports = {
 
     nuevo: function (req, res) {
-
         var auxMilitante = req.body;
-        auxMilitante.hora = moment().tz("America/La_Paz").format();
+        auxMilitante.id = uuidv1();
         auxMilitante.asistencia = true;
         Militante.create(auxMilitante).exec(function (datoMilitatne) {
 

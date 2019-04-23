@@ -87,27 +87,23 @@ module.exports = {
         sails.log('BODY:', req.body);
         res.send('oso')
     },
-    buscarMilitanteCi: function (req, res) {
+    buscarMilitanteCi: async function (req, res) {
         var nombreCedula = req.param('ci');
         var paramIdEvento = req.param('idEvento')
-        console.log('NOMBRE a BUSCAR CI:', nombreCedula)
-        Personas.find(
-            { ci: nombreCedula }
-        ).then(datoMilitantes => {
-            if (datoMilitantes.length > 0) {
-                return Asistencia.find({ idPersona: datoMilitantes[0].id, idEvento: paramIdEvento })
-            }else{
-                return res.send([]);
-            }
-        }
-        ).then(datoAsistencia => {
+        // console.log('NOMBRE a BUSCAR CI:', nombreCedula)
+        var datoMilitantes = await Personas.find({ ci: nombreCedula });
+        if (datoMilitantes.length > 0) {
+            var datoAsistencia = await Asistencia.find({ idPersona: datoMilitantes[0].id, idEvento: paramIdEvento });
             if(datoAsistencia.length > 0){
-                return 
+                datoMilitantes[0].asistencia= datoAsistencia;
+                return res.json(datoMilitantes)
+            }else{
+                datoMilitantes[0].asistencia= datoAsistencia;
+                return res.json(datoMilitantes)
             }
+        } else {
+            return res.send([]);
+        }
 
-        })
-            .catch(err => {
-                res.serverError(err)
-            });
     }
 };

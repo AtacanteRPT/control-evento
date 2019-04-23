@@ -21,7 +21,7 @@ module.exports = {
         res.view({
             militantes: [],
             eventos: eventos,
-            idActualEvento: 0,
+            idActualEvento: 9,
         });
     },
 

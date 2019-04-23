@@ -14,6 +14,7 @@ module.exports = {
             unique: true,
             // columnName: 'the_primary_key'
         },
+
         nombres: {
             type: 'string',
         },
@@ -100,8 +101,29 @@ module.exports = {
         institucion_min_trabajo: {
             type: 'string',
             allowNull: true,
-
         },
+        institucion: {
+            type: 'string',
+            allowNull: true,
+        },
+        cargo:{
+            type:'string',
+            allowNull:true
+        },
+        actualizado: {
+            type: 'ref',
+            columnType: 'TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()'
+        },
+        creado: {
+            type: 'ref',
+            columnType: 'TIMESTAMP NOT NULL'
+        },
+        militancia:{
+            type:'boolean',
+            allowNull:true
+        },
+
+        
         ministerio_descentralizadas: {
             type: 'string',
             allowNull: true,
@@ -169,6 +191,7 @@ module.exports = {
             type: 'string',
             allowNull: true,
         },
+
         habilitado: {
             type: 'boolean',
             allowNull: true,
