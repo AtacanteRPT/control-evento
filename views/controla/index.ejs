@@ -52,7 +52,7 @@
 				</div>
 				<div id="loader">
 
-					<div  class="progress purple accent-1" >
+					<div class="progress purple accent-1">
 						<div class="indeterminate purple"></div>
 					</div>
 				</div>
@@ -83,28 +83,58 @@
 				<div class="row">
 					<form method="POST" id='formNuevo' action="/militante/nuevo" class="col s12">
 						<div class="row">
-							<div class="input-field col s6">
+							<div class="input-field col s3">
 								<i class="material-icons prefix">card_membership</i>
 								<input id="inputCedula" type="text" name="cedula" required class="validate">
 								<label for="inputCedula">Cedula</label>
 							</div>
-							<div class="input-field col s6">
+							<div class="input-field col s3">
 								<i class="material-icons prefix">account_circle</i>
-								<input id="inputNombre" type="text" name="nombre" required class="validate">
-								<label for="inputNombre">Nombre</label>
+								<input id="inputPaterno" type="text" name="paterno" required class="validate">
+								<label for="inputPaterno">Paterno</label>
 							</div>
+							<div class="input-field col s3">
+									<i class="material-icons prefix">account_circle</i>
+									<input id="inputMaterno" type="text" name="materno" class="validate">
+									<label for="inputMaterno">Materno</label>
+								</div>
+								<div class="input-field col s3">
+										<i class="material-icons prefix">account_circle</i>
+										<input id="inputNombre" type="text" name="nombre" required class="validate">
+										<label for="inputNombre">Nombre</label>
+									</div>
 
 							<div class="input-field col s6">
 								<i class="material-icons prefix">phone</i>
 								<input id="inputCelular" type="number" name="celular" class="validate">
 								<label for="inputCelular">Celular</label>
 							</div>
+
+
 							<div class="input-field col s6">
 								<i class="material-icons prefix">work</i>
 								<input id="inputCargo" type="text" name="cargo">
-								<label for="inputCargo">Cargo</label>
-
+								<label for="inputCargo">Cargo </label>
+								<p id="pNuevoCargo">NUEVO</p>
+								<div id="buscarCargo">
+									<table class="striped" id="tablaCargos">
+										<tbody>
+										</tbody>
+									</table>
+								</div>
 							</div>
+
+							<input id="inputIdCargo" type="number" name="idCargo" hidden>
+							<input id="inputIdInstitucion" type="number" name="idInstitucion" hidden>
+
+
+
+							<!-- <div class="input-field col s6">
+								<i class="material-icons prefix">textsms</i>
+								<input type="text" id="autocomplete-input" class="autocomplete">
+								<label for="autocomplete-input">Cargo</label>
+							</div> -->
+
 
 							<div class="input-field col s6">
 								<i class="material-icons prefix">location_on</i>
@@ -131,63 +161,20 @@
 								</select>
 								<!-- <label>Seleccionar Genero</label> -->
 							</div>
-
 							<div class="input-field col s6">
-								<i class="material-icons prefix">location_city</i>
-								<select class="browser-default" id="inputInstitucion" name="institucion">
-									<option value="" selected>Seleccionar DISTRITO</option>
-									<option value="DISTRITO_4">DISTRITO 4</option>
-									<option value="DISTRITO_5">DISTRITO 5</option>
-									<option value="DISTRITO_6">DISTRITO 6</option>
-									<option value="DISTRITO_7">DISTRITO 7</option>
-									<option value="DISTRITO_8">DISTRITO 8</option>
-									<option value="REGIONAL_MAS">REGIONAL MAS</option>
-									<option value="CAMARA_DIPUTADOS">CAMARA DE DIPUTADOS</option>
-									<option value="CONCEJAL">CONCEJALES</option>
-									<option value="OTRO">OTROS</option>
-									<option value="DISTRITO_1">DISTRITO 1</option>
-									<option value="DISTRITO_2">DISTRITO 2</option>
-									<option value="DISTRITO_3">DISTRITO 3</option>
-									<option value="DISTRITO_9">DISTRITO 9</option>
-									<option value="DISTRITO_10">DISTRITO 10</option>
-									<option value="DISTRITO_11">DISTRITO 11</option>
-									<option value="DISTRITO_12">DISTRITO 12</option>
-									<option value="DISTRITO_13">DISTRITO 13</option>
-									<option value="DISTRITO_14">DISTRITO 14</option>
-									<option value="DISTRITO_15">DISTRITO 15</option>
-									<option value="DISTRITO_16">DISTRITO 16</option>
-									<option value="DISTRITO_17">DISTRITO 17</option>
-									<option value="DISTRITO_18">DISTRITO 18</option>
-									<option value="DISTRITO_19">DISTRITO 19</option>
-									<option value="DISTRITO_20">DISTRITO 20</option>
-									<option value="DISTRITO_21">DISTRITO 21</option>
-									<option value="DISTRITO_22">DISTRITO 22</option>
-									<option value="DISTRITO_23">DISTRITO 23</option>
-									<option value="DISTRITO_24">DISTRITO 24</option>
-									<option value="DISTRITO_25">DISTRITO 25</option>
-									<option value="DISTRITO_26">DISTRITO 26</option>
-									<option value="DISTRITO_27">DISTRITO 27</option>
-									<option value="DISTRITO_28">DISTRITO 28</option>
-									<option value="DISTRITO_29">DISTRITO 29</option>
-									<option value="DISTRITO_30">DISTRITO 30</option>
+									<i class="material-icons prefix">home</i>
+									<input id="inputInstitucion" type="text" name="institucion">
+									<label for="inputInstitucion">Institución</label>
+	
+									<div id="buscarIntitucion">
+										<table class="striped" id="tablaInstitucion">
+						
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
 
-
-								</select>
-								<!-- <input id="inputInstitucion" type="text" name="institucion" >
-                                <label for="inputInstitucion">Institución</label> -->
-
-							</div>
-							<!--                         
-                            <div class="input-field col s8">
-                                <i class="material-icons prefix">person_add</i>
-                                <input id="inputRem" type="text" name="remplazo" class="validate">
-                                <label for="inputRem">Remplazo</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <i class="material-icons prefix">card_membership</i>
-                                <input id="inputCedulaRem" type="text" name="ci_remplazo" class="validate">
-                                <label for="inputCedulaRem">Cedula remplazo</label>
-                            </div> -->
 						</div>
 
 						<!-- <input type="submit" value="Actualizar"> -->
@@ -208,18 +195,6 @@
 	</div>
 
 
-	<!-- <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
-        <button type="button" id="btnAddMilitante" class="btn-floating btn-large pink waves-effect waves-light">
-            <i class="large material-icons">add</i>
-        </button>
-
-        <ul>
-            <li>
-                <a class="btn-floating red"><i class="material-icons">note_add</i></a>
-                <a href="" class="btn-floating fab-tip">Adicionar Militante</a>
-            </li>
-        </ul>
-    </div> -->
 </main>
 
 
@@ -316,8 +291,12 @@
 </div>
 
 <script>
+
+
+
 	$('#loader').hide();
 	$('#tablaMilitantes').hide();
+	$('#tablaCargos').hide();
 	$('.dropdown-button').dropdown({
 		inDuration: 300,
 		outDuration: 225,
@@ -361,9 +340,9 @@
 
 	function actualizarTabla(listaMilitantes) {
 		$('#tablaMilitantes').show();
-		
+
 		$('#tablaMilitantes > tbody').empty()
-		listaMilitantes.forEach(function (militante, index) { 
+		listaMilitantes.forEach(function (militante, index) {
 			$('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
 				'<td>' + (index + 1) + '</td>' +
 				'<td>' + militante.nombres + '</td>' +
@@ -396,7 +375,7 @@
 						dataType: "json",
 						success: function (response) {
 							//if request if made successfully then the response represent the data
-							console.log('MARCA',response);
+							console.log('MARCA', response);
 							// auxMilitantes
 							$('#loader').hide();
 							Materialize.toast(response.msg, 4000)
@@ -415,7 +394,7 @@
 						dataType: "json",
 						success: function (response) {
 							//if request if made successfully then the response represent the data
-							console.log('DESMARCAR',response);
+							console.log('DESMARCAR', response);
 							// auxMilitantes
 							Materialize.toast(response.msg, 4000)
 
@@ -429,6 +408,153 @@
 			});
 		}, this);
 	}
+
+
+	function listaCargos(listaCargos) {
+		$('#tablaCargos').show();
+
+		$('#tablaCargos > tbody').empty()
+		listaCargos.forEach(function (cargo, index) {
+			$('#tablaCargos > tbody').append('<tr id="tr' + cargo.id + '">' +
+				'<td>' + (index + 1) + '</td>' +
+				'<td>' + cargo.nombre + '</td>' +
+				'<td>' + '<button class="waves-effect waves-light btn blue" onclick="elegirCargo('+cargo.id+')" type="button"><i class="material-icons">assignment_turned_in</i></button>' + '</td>' +
+				'</tr>')
+
+		}, this);
+	}
+
+	function elegirCargo(cargo) {
+
+		console.log('CARGO', $('#tr'+cargo).children()[1].innerHTML);
+		$('#inputCargo').val($('#tr'+cargo).children()[1].innerHTML)
+		$('#inputIdCargo').val(cargo)
+		$('#tablaCargos').hide();
+
+	}
+
+	$('#inputCargo').keyup(function () {
+		var inputCargo = $('#inputCargo').val();
+
+		if (inputCargo.length != 0) {
+			$.ajax({
+				type: "POST",
+				url: "/controlador/cargos",
+				data: {
+					cargo: $('#inputCargo').val(),
+				},
+				dataType: "json",
+				success: function (response) {
+					console.log('response Cargo',response)
+
+					if (response.length ==0) {
+
+						// $.ajax({
+						// 	type: "POST",
+						// 	url: "/cargo",
+						// 	data: {
+						// 		nombre: $('#inputCargo').val(),
+						// 		observacion : ''
+						// 	},
+						// 	dataType: "json",
+						// 	success: function (response) {
+							
+								
+						// 	}
+						// });
+						$('#tablaCargos').hide();
+					} else {
+						listaCargos(response)
+					}
+				}
+			});
+		} else {
+			// listaCargos([])
+			$('#tablaCargos').hide();
+
+		}
+
+
+	});
+	
+
+
+
+	function listaInstitucion(listaInstitucion) {
+		$('#tablaInstitucion').show();
+
+		$('#tablaInstitucion > tbody').empty()
+		listaInstitucion.forEach(function (institucion, index) {
+			$('#tablaInstitucion > tbody').append('<tr id="tr' + institucion.id + '">' +
+				'<td>' + (index + 1) + '</td>' +
+				'<td>' + institucion.nombre + '</td>' +
+				'<td>' + '<button class="waves-effect waves-light btn blue" onclick="elegirInstitucion('+institucion.id+')" type="button"><i class="material-icons">assignment_turned_in</i></button>' + '</td>' +
+				'</tr>')
+
+		}, this);
+	}
+
+	function elegirInstitucion(institucion) {
+
+		console.log('institucion', $('#tr'+institucion).children()[1].innerHTML);
+		$('#inputInstitucion').val($('#tr'+institucion).children()[1].innerHTML)
+		$('#inputIdInstitucion').val(institucion)
+		$('#tablaInstitucion').hide();
+
+	}
+
+	$('#inputInstitucion').keyup(function () {
+		var inputInstitucion = $('#inputInstitucion').val();
+
+		if (inputInstitucion.length != 0) {
+			$.ajax({
+				type: "POST",
+				url: "/controlador/instituciones",
+				data: {
+					institucion: $('#inputInstitucion').val(),
+				},
+				dataType: "json",
+				success: function (response) {
+					console.log('response Cargo',response)
+
+					if (response.length ==0) {
+
+						// $.ajax({
+						// 	type: "POST",
+						// 	url: "/cargo",
+						// 	data: {
+						// 		nombre: $('#inputInstitucion').val(),
+						// 		observacion : ''
+						// 	},
+						// 	dataType: "json",
+						// 	success: function (response) {
+							
+								
+						// 	}
+						// });
+						$('#tablaInstitucion').hide();
+					} else {
+						listaInstitucion(response)
+					}
+				}
+			});
+		} else {
+			// listaInstitucion([])
+			$('#tablaInstitucion').hide();
+
+		}
+
+
+	});
+
+
+
+
+
+
+
+
+
 
 	function actualizarMilitante(idMilitante) {
 		console.log(idMilitante)

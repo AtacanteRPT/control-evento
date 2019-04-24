@@ -200,6 +200,12 @@ module.exports = {
             type: 'string',
             allowNull: true,
         },
+        idInstitucion:{
+            model:'institucion'
+        },
+        idCargo:{
+            model:'cargo'
+        }
 
 
     },

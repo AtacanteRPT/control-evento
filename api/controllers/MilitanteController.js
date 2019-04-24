@@ -12,6 +12,13 @@ module.exports = {
     nuevo: function (req, res) {
         var auxMilitante = req.body;
         auxMilitante.id = uuidv1();
+        console.log('NUEVO',auxMilitante)
+        res.redirect('/controlador/index')
+    },
+
+    cargos: function (req, res) {
+        var auxMilitante = req.body;
+        auxMilitante.id = uuidv1();
         auxMilitante.asistencia = true;
         Militante.create(auxMilitante).exec(function (datoMilitatne) {
 

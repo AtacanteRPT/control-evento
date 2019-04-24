@@ -90,20 +90,49 @@ module.exports = {
     buscarMilitanteCi: async function (req, res) {
         var nombreCedula = req.param('ci');
         var paramIdEvento = req.param('idEvento')
-        // console.log('NOMBRE a BUSCAR CI:', nombreCedula)
+        console.log('NOMBRE a BUSCAR CI:', nombreCedula)
         var datoMilitantes = await Personas.find({ ci: nombreCedula });
         if (datoMilitantes.length > 0) {
             var datoAsistencia = await Asistencia.find({ idPersona: datoMilitantes[0].id, idEvento: paramIdEvento });
-            if(datoAsistencia.length > 0){
-                datoMilitantes[0].asistencia= datoAsistencia;
+            if (datoAsistencia.length > 0) {
+                datoMilitantes[0].asistencia = datoAsistencia;
                 return res.json(datoMilitantes)
-            }else{
-                datoMilitantes[0].asistencia= datoAsistencia;
+            } else {
+                datoMilitantes[0].asistencia = datoAsistencia;
                 return res.json(datoMilitantes)
             }
         } else {
             return res.send([]);
         }
 
+    },
+    cargos: function (req, res) {
+        var paramCargo = req.body.cargo
+        console.log('cargo a buscar:', paramCargo)
+        Cargo.find({
+            nombre: {contains: paramCargo}
+        }).then(cargoMilitantes =>{ 
+            console.log('LISTA Cargos', cargoMilitantes)
+            return res.json(cargoMilitantes)})
+
+
+            .catch(err => {
+                res.serverError(err)
+            });
+    },
+    instituciones: function (req, res) {
+        var paramInstitucion = req.body.institucion
+        console.log('cargo a buscar:', paramInstitucion)
+        Institucion.find({
+            nombre: {contains: paramInstitucion}
+        }).then(datoInstituciones =>{ 
+            console.log('LISTA Instituciones', datoInstituciones)
+            return res.json(datoInstituciones)})
+
+
+            .catch(err => {
+                res.serverError(err)
+            });
     }
+
 };

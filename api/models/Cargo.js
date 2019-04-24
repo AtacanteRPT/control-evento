@@ -11,16 +11,6 @@ module.exports = {
         createdAt: { type: 'number', autoCreatedAt: true, },
         updatedAt: { type: 'number', autoUpdatedAt: true, },
         id: { type: 'number', autoIncrement: true, },
-        fecha: {
-            type: 'ref',
-            columnType: 'date',
-            required: false
-        },
-        estado: {
-            type: 'string',
-            required: false,
-            allowNull: true
-        },
         observacion: {
             type: 'string',
             required: false,
@@ -30,22 +20,7 @@ module.exports = {
             type: 'string',
             required: false,
             allowNull: true
-        },
-        hora: {
-            type: 'string',
-            required: false,
-            allowNull: true
-        },
-        latitud: {
-            type: 'string',
-            required: false,
-            allowNull: true
-        },
-        longitud: {
-            type: 'string',
-            required: false,
-            allowNull: true
-        },
-    },
+        }
+    }
 
 };
