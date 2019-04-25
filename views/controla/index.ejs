@@ -11,7 +11,6 @@
 
 						<!-- <b>Controlar Asistencia</b><br> -->
 						<b>COORDINACIÓN PLAN DE GOBIERNO </b>
-
 					</div>
 				</div>
 				<div class="row">
@@ -81,11 +80,11 @@
 
 				</div>
 				<div class="row">
-					<form method="POST" id='formNuevo' action="/militante/nuevo" class="col s12">
+					<form method="POST" id='formNuevo' action="/militante/nuevoNoMilitante" class="col s12">
 						<div class="row">
 							<div class="input-field col s3">
 								<i class="material-icons prefix">card_membership</i>
-								<input id="inputCedula" type="text" name="cedula" required class="validate">
+								<input id="inputCedula" type="text" name="ci" required class="validate">
 								<label for="inputCedula">Cedula</label>
 							</div>
 							<div class="input-field col s3">
@@ -100,13 +99,13 @@
 								</div>
 								<div class="input-field col s3">
 										<i class="material-icons prefix">account_circle</i>
-										<input id="inputNombre" type="text" name="nombre" required class="validate">
+										<input id="inputNombre" type="text" name="nombres" required class="validate">
 										<label for="inputNombre">Nombre</label>
 									</div>
 
 							<div class="input-field col s6">
 								<i class="material-icons prefix">phone</i>
-								<input id="inputCelular" type="number" name="celular" class="validate">
+								<input id="inputCelular" type="number" name="celular1" class="validate">
 								<label for="inputCelular">Celular</label>
 							</div>
 
@@ -124,8 +123,8 @@
 								</div>
 							</div>
 
-							<input id="inputIdCargo" type="number" name="idCargo" hidden>
-							<input id="inputIdInstitucion" type="number" name="idInstitucion" hidden>
+							<input id="inputIdCargo" type="number" name="idCargo" value="999" hidden>
+							<input id="inputIdInstitucion" type="number" name="idInstitucion" value="999" hidden>
 
 
 
@@ -175,6 +174,8 @@
 									</div>
 								</div>
 
+								<input id="" type="number" name="idEvento" value=9 hidden>
+
 						</div>
 
 						<!-- <input type="submit" value="Actualizar"> -->
@@ -186,6 +187,8 @@
 					</form>
 					<a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a>
 				</div>
+
+
 
 
 			</div>
@@ -485,7 +488,7 @@
 
 		$('#tablaInstitucion > tbody').empty()
 		listaInstitucion.forEach(function (institucion, index) {
-			$('#tablaInstitucion > tbody').append('<tr id="tr' + institucion.id + '">' +
+			$('#tablaInstitucion > tbody').append('<tr id="trIns' + institucion.id + '">' +
 				'<td>' + (index + 1) + '</td>' +
 				'<td>' + institucion.nombre + '</td>' +
 				'<td>' + '<button class="waves-effect waves-light btn blue" onclick="elegirInstitucion('+institucion.id+')" type="button"><i class="material-icons">assignment_turned_in</i></button>' + '</td>' +
@@ -496,8 +499,8 @@
 
 	function elegirInstitucion(institucion) {
 
-		console.log('institucion', $('#tr'+institucion).children()[1].innerHTML);
-		$('#inputInstitucion').val($('#tr'+institucion).children()[1].innerHTML)
+		console.log('institucion', $('#trIns'+institucion).children()[1].innerHTML);
+		$('#inputInstitucion').val($('#trIns'+institucion).children()[1].innerHTML)
 		$('#inputIdInstitucion').val(institucion)
 		$('#tablaInstitucion').hide();
 
@@ -549,13 +552,6 @@
 
 
 
-
-
-
-
-
-
-
 	function actualizarMilitante(idMilitante) {
 		console.log(idMilitante)
 
@@ -598,89 +594,6 @@
 		$('#modal1').openModal();
 	};
 	var idMilitante = 0;
-	$('#inputCedula').keyup(function (params) {
-		var auxBuscar = $('#inputCedula').val()
-
-		console.log('AUXBUSCAR:', auxBuscar)
-		// $.post("/controlador/buscarMilitante", { nombre: auxBuscar })
-		// .done(function( data ) {
-		//     console.log(data)
-		// });
-		if (auxBuscar.length != 0) {
-
-			if (auxBuscar.length > 5) {
-
-				$.ajax({
-					type: "POST",
-					url: "/controlador/buscarMilitante",
-					data: {
-						nombre: auxBuscar
-					},
-					dataType: "json",
-					success: function (militante) {
-						if (militante.length > 0) {
-							//if request if made successfully then the response represent the data
-							$('#inputNombre').val(militante[0].nombre)
-							$('#inputInstitucion').val(militante[0].institucion)
-							$('#inputCargo').val(militante[0].cargo)
-							// $('#inputCedula').val(militante[0].cedula)
-							$('#inputCelular').val(militante[0].celular)
-							$('#inputDireccion').val(militante[0].direccion)
-							$('#inputSexo').val(militante[0].sexo)
-							$('#inputEmail').val(militante[0].email)
-							//$("#inputSexo option[value='O']").attr('selected', 'selected');
-
-							// $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
-
-							//$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-							// $('#inputFechaNac').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
-							console.log('MILITANTE ENCONTRADO')
-							idMilitante = militante[0].id;
-							$('#inputRem').val(militante[0].remplazo)
-							$('#inputCedulaRem').val(militante[0].ci_remplazo)
-							// $('#btnAdicionar').hide();
-							$('#btnEncontrado').show();
-						} else {
-							$('#inputNombre').val('')
-							$('#inputInstitucion').val('')
-							$('#inputCargo').val('')
-							// $('#inputCedula').val(militante[0].cedula)
-							$('#inputCelular').val('')
-							$('#inputDireccion').val('')
-							$('#inputSexo').val('')
-							$('#inputEmail').val('')
-							//$("#inputSexo option[value='O']").attr('selected', 'selected');
-
-							// $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
-
-							//$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-							$('#inputFechaNac').val('')
-
-						}
-
-					}
-				});
-			}
-		} else {
-			$('#inputNombre').val('')
-			$('#inputInstitucion').val('')
-			$('#inputCargo').val('')
-			// $('#inputCedula').val(militante[0].cedula)
-			$('#inputCelular').val('')
-			$('#inputDireccion').val('')
-			$('#inputSexo').val('')
-			$('#inputEmail').val('')
-			//$("#inputSexo option[value='O']").attr('selected', 'selected');
-
-			// $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
-
-			//$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-			$('#inputFechaNac').val('')
-			//   $('#btnAdicionar').show();
-			$('#btnEncontrado').hide();
-
-		}
-	})
 
 	$('#btnAddMilitante').click(function (params) {
 		$('#modal2').openModal();

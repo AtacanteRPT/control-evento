@@ -9,11 +9,39 @@ const uuidv1 = require('uuid/v1');
 
 module.exports = {
 
-    nuevo: function (req, res) {
+    nuevoNoMilitante: function (req, res) {
+        var hoy = new Date();
+
+        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
+        var hora = moment().tz("America/La_Paz").format();
         var auxMilitante = req.body;
         auxMilitante.id = uuidv1();
-        console.log('NUEVO',auxMilitante)
-        res.redirect('/controlador/index')
+        auxMilitante.militancia = false;
+        var paramIdEvento = req.param('idEvento');
+        console.log('NUEVO', auxMilitante)
+
+        Personas.create(req.body).fetch().exec(function (err, datoPersona) {
+            if (err) res.serverError(err);
+
+            sails.log('datoPersona', req.body)
+
+            if (datoPersona != null) {
+
+                Asistencia.create({
+                    idEvento: paramIdEvento,
+                    idPersona: datoPersona.id,
+                    fecha: fecha,
+                    hora: hora,
+                    credencial: false
+                }).exec(function (err, datoAsistencia) {
+                        if (err) res.serverError(err);
+                        res.redirect('/controlador/index')
+                    });
+            } else {
+                res.json({ msg: 'Error al Adicionar' })
+            }
+
+        });
     },
 
     cargos: function (req, res) {

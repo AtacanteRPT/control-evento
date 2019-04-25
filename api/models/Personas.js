@@ -201,7 +201,7 @@ module.exports = {
             allowNull: true,
         },
         idInstitucion:{
-            model:'institucion'
+            model:'institucion',
         },
         idCargo:{
             model:'cargo'
