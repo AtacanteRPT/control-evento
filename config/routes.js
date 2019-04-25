@@ -33,6 +33,16 @@ module.exports.routes = {
     'get /evento/delete/:id': 'EventoController.delete',
     'get /evento/crear': { view: 'evento/create' },
 
+    'get /cargo/edit/:id': 'CargoController.edit',
+    'get /cargo/update/:id': 'CargoController.update',
+    'get /cargo/delete/:id': 'CargoController.delete',
+    'get /cargo/crear': { view: 'cargo/create' },
+
+    'get /institucion/edit/:id': 'InstitucionController.edit',
+    'get /institucion/update/:id': 'InstitucionController.update',
+    'get /institucion/delete/:id': 'InstitucionController.delete',
+    'get /institucion/crear': { view: 'institucion/create' },
+
     /***************************************************************************
      *                                                                          *
      * More custom routes here...                                               *
