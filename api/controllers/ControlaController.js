@@ -9,20 +9,34 @@ module.exports = {
 
         var datoEventos = await Evento.find({ estado: 'activo' });
         console.log('DATOEVENTOS:', datoEventos)
-        var eventos = [];
-        for (let index = 0; index < datoEventos.length; index++) {
+        // var eventos = [];
+        // for (let index = 0; index < datoEventos.length; index++) {
 
-            var auxContador = await Asistencia.count({ idEvento: datoEventos[index].id });
-            datoEventos[index].nroAsistentes = auxContador;
-            eventos.push(datoEventos[index]);
-        }
+        //     var auxContador = await Asistencia.count({ idEvento: datoEventos[index].id });
+        //     datoEventos[index].nroAsistentes = auxContador;
+        //     eventos.push(datoEventos[index]);
+        // }
 
-        console.log('EVENTOS:', eventos)
+        // console.log('EVENTOS:', eventos)
         res.view({
             militantes: [],
-            eventos: eventos,
-            idActualEvento: 9,
+            eventos: datoEventos,
+            idActualEvento: 0,
         });
+    },
+
+    evento: function (req, res) {
+        sails.log('Cambio deEvento')
+        Evento.find().then(datoEventos => {
+            res.view('controla/index', {
+                militantes: [],
+                eventos: datoEventos,
+                idActualEvento: req.param('id')
+            })
+        }).catch(err => {
+            res.serverError(err);
+        })
+
     },
 
     show: function (req, res, next) {

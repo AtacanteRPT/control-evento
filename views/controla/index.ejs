@@ -2,196 +2,212 @@
 	<div class="row">
 		<div class="col s12">
 
+<% if(idActualEvento != 0){%>
 
-			<div style="padding: 35px;" class="card">
-				<div class="row">
+	<div style="padding: 35px;" class="card">
+		<div class="row">
 
 
-					<div class="center card-title">
+			<div class="center card-title">
 
-						<!-- <b>Controlar Asistencia</b><br> -->
-						<b>COORDINACIÓN PLAN DE GOBIERNO </b>
+				<!-- <b>Controlar Asistencia</b><br> -->
+				<b>COORDINACIÓN PLAN DE GOBIERNO </b>
+				<% var actualEvento = eventos.filter(data => data.id==idActualEvento) %>
+				<h3> <%= actualEvento[0].nombre%> </h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+
+				<div class="card-panel center">
+					<span class="card-title">Asistencia Manual a Militantes</span>
+					<div class="row">
+						<div class="input-field col s12 m4">
+
+							<input type="text" id="inputBuscarCi" class="autocomplete">
+							<label for="inputBuscarCi">Nro Documento</label>
+						</div>
+						<div class="input-field col s12 m4">
+							<button class="btn red" id="btnBuscarCi"><i class="material-icons left">search</i>
+								Buscar</button>
+						</div>
 					</div>
+
+
+					<table class="striped" id="tablaMilitantes">
+						<thead>
+							<tr>
+								<th>Nro</th>
+								<th>Nombre</th>
+								<th>Cargo</th>
+								<th>Cedula</th>
+								<th>Celular</th>
+								<th>Asistencia</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						</tbody>
+					</table>
 				</div>
+			</div>
+		</div>
+		<div id="loader">
+
+			<div class="progress purple accent-1">
+				<div class="indeterminate purple"></div>
+			</div>
+		</div>
+		<!-- <div class="row">
+				<div class="col s12 m6">
+					<ul class="collection">
+						<li class="collection-item avatar">
+							<img src="images/yuna.jpg" alt="" class="circle">
+							<span class="title">Title</span>
+							<p>First Line
+								<br> Second Line
+							</p>
+							<a href="#!" class="secondary-content">
+								<i class="material-icons">grade</i>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+						</div> -->
+
+		<div class="center">
+
+			<!-- <b>Controlar Asistencia</b><br> -->
+			<b>ADICIONAR PERSONA AL EVENTO - NO EN LISTA DE MILITANCIA</b>
+
+		</div>
+		<div class="row">
+			<form method="POST" id='formNuevo' action="/militante/nuevoNoMilitante" class="col s12">
 				<div class="row">
-					<div class="col s12">
-
-						<div class="card-panel center">
-							<span class="card-title">Asistencia Manual a Militantes</span>
-							<div class="row">
-								<div class="input-field col s12 m4">
-
-									<input type="text" id="inputBuscarCi" class="autocomplete">
-									<label for="inputBuscarCi">Nro Documento</label>
-								</div>
-								<div class="input-field col s12 m4">
-									<button class="btn red" id="btnBuscarCi"><i class="material-icons left">search</i>
-										Buscar</button>
-								</div>
+					<div class="input-field col s3">
+						<i class="material-icons prefix">card_membership</i>
+						<input id="inputCedula" type="text" name="ci" required class="validate">
+						<label for="inputCedula">Cedula</label>
+					</div>
+					<div class="input-field col s3">
+						<i class="material-icons prefix">account_circle</i>
+						<input id="inputPaterno" type="text" name="paterno" required class="validate">
+						<label for="inputPaterno">Paterno</label>
+					</div>
+					<div class="input-field col s3">
+							<i class="material-icons prefix">account_circle</i>
+							<input id="inputMaterno" type="text" name="materno" class="validate">
+							<label for="inputMaterno">Materno</label>
+						</div>
+						<div class="input-field col s3">
+								<i class="material-icons prefix">account_circle</i>
+								<input id="inputNombre" type="text" name="nombres" required class="validate">
+								<label for="inputNombre">Nombre</label>
 							</div>
-
-
-							<table class="striped" id="tablaMilitantes">
-								<thead>
-									<tr>
-										<th>Nro</th>
-										<th>Nombre</th>
-										<th>Cargo</th>
-										<th>Cedula</th>
-										<th>Celular</th>
-										<th>Asistencia</th>
-									</tr>
-								</thead>
-
+					<div class="input-field col s6">
+						<i class="material-icons prefix">phone</i>
+						<input id="inputCelular" type="number" name="celular1" class="validate">
+						<label for="inputCelular">Celular</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">work</i>
+						<input id="inputCargo" type="text" name="cargo">
+						<div id="chipNuevoCargo" class="chip z-depth-2 blue-grey darken-4 white-text">NUEVO</div>
+						<label for="inputCargo">Cargo </label>
+						<div id="buscarCargo">
+							<table class="striped" id="tablaCargos">
 								<tbody>
 								</tbody>
 							</table>
 						</div>
 					</div>
-				</div>
-				<div id="loader">
 
-					<div class="progress purple accent-1">
-						<div class="indeterminate purple"></div>
+					<input id="inputIdCargo" type="number" name="idCargo" value="999" hidden>
+					<input id="inputIdInstitucion" type="number" name="idInstitucion" value="999" hidden>
+
+
+
+					<!-- <div class="input-field col s6">
+						<i class="material-icons prefix">textsms</i>
+						<input type="text" id="autocomplete-input" class="autocomplete">
+						<label for="autocomplete-input">Cargo</label>
+					</div> -->
+
+
+					<div class="input-field col s6">
+						<i class="material-icons prefix">location_on</i>
+						<input id="inputDireccion" type="tel" name="direccion" class="validate">
+						<label for="inputDireccion">Dirección</label>
 					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">date_range</i>
+						<input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
+					</div>
+
+					<div class="input-field col s6">
+						<i class="material-icons prefix">email</i>
+						<input id="inputEmail" type="email" name="email" class="validate">
+					</div>
+					<div class="input-field col s6">
+						<!-- <i class="material-icons prefix">people</i> -->
+
+						<select class="browser-default" id="inputSexo" name="inputSexo">
+							<option value="" selected> Selecionar Genero</option>
+							<option value="M">Masculino</option>
+							<option value="F">Femenino</option>
+							<option value="O">Otro</option>
+						</select>
+						<!-- <label>Seleccionar Genero</label> -->
+					</div>
+					<div class="input-field col s6">
+							<i class="material-icons prefix">home</i>
+							<input id="inputInstitucion" type="text" name="institucion">
+							<div id="chipNuevoInstitucion" class="chip z-depth-2 blue-grey darken-4 white-text">NUEVO</div>
+							<label for="inputInstitucion">Institución</label>
+
+							<div id="buscarIntitucion">
+								<table class="striped" id="tablaInstitucion">
+				
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+					</div>
+
+						<input id="" type="number" name="idEvento" value=<%=idActualEvento%> hidden>
+
 				</div>
-				<!-- <div class="row">
-                        <div class="col s12 m6">
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <img src="images/yuna.jpg" alt="" class="circle">
-                                    <span class="title">Title</span>
-                                    <p>First Line
-                                        <br> Second Line
-                                    </p>
-                                    <a href="#!" class="secondary-content">
-                                        <i class="material-icons">grade</i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
 
-								</div> -->
+				<!-- <input type="submit" value="Actualizar"> -->
+				<input class="btn" id='btnAdicionar' type="submit" value="ADICIONAR">
 
-				<div class="center">
+				<!-- <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
+					<i class="material-icons right">local_printshop</i>
+				</button> -->
+			</form>
+			<a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a>
+		</div>
 
-					<!-- <b>Controlar Asistencia</b><br> -->
-					<b>ADICIONAR PERSONA AL EVENTO - NO EN LISTA DE MILITANCIA</b>
+	</div>
+	<%}else{%>
 
-				</div>
-				<div class="row">
-					<form method="POST" id='formNuevo' action="/militante/nuevoNoMilitante" class="col s12">
-						<div class="row">
-							<div class="input-field col s3">
-								<i class="material-icons prefix">card_membership</i>
-								<input id="inputCedula" type="text" name="ci" required class="validate">
-								<label for="inputCedula">Cedula</label>
-							</div>
-							<div class="input-field col s3">
-								<i class="material-icons prefix">account_circle</i>
-								<input id="inputPaterno" type="text" name="paterno" required class="validate">
-								<label for="inputPaterno">Paterno</label>
-							</div>
-							<div class="input-field col s3">
-									<i class="material-icons prefix">account_circle</i>
-									<input id="inputMaterno" type="text" name="materno" class="validate">
-									<label for="inputMaterno">Materno</label>
-								</div>
-								<div class="input-field col s3">
-										<i class="material-icons prefix">account_circle</i>
-										<input id="inputNombre" type="text" name="nombres" required class="validate">
-										<label for="inputNombre">Nombre</label>
-									</div>
-
-							<div class="input-field col s6">
-								<i class="material-icons prefix">phone</i>
-								<input id="inputCelular" type="number" name="celular1" class="validate">
-								<label for="inputCelular">Celular</label>
-							</div>
-
-
-							<div class="input-field col s6">
-								<i class="material-icons prefix">work</i>
-								<input id="inputCargo" type="text" name="cargo">
-								<label for="inputCargo">Cargo </label>
-								<p id="pNuevoCargo">NUEVO</p>
-								<div id="buscarCargo">
-									<table class="striped" id="tablaCargos">
-										<tbody>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<input id="inputIdCargo" type="number" name="idCargo" value="999" hidden>
-							<input id="inputIdInstitucion" type="number" name="idInstitucion" value="999" hidden>
-
-
-
-							<!-- <div class="input-field col s6">
-								<i class="material-icons prefix">textsms</i>
-								<input type="text" id="autocomplete-input" class="autocomplete">
-								<label for="autocomplete-input">Cargo</label>
-							</div> -->
-
-
-							<div class="input-field col s6">
-								<i class="material-icons prefix">location_on</i>
-								<input id="inputDireccion" type="tel" name="direccion" class="validate">
-								<label for="inputDireccion">Dirección</label>
-							</div>
-							<div class="input-field col s6">
-								<i class="material-icons prefix">date_range</i>
-								<input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
-							</div>
-
-							<div class="input-field col s6">
-								<i class="material-icons prefix">email</i>
-								<input id="inputEmail" type="email" name="email" class="validate">
-							</div>
-							<div class="input-field col s6">
-								<!-- <i class="material-icons prefix">people</i> -->
-
-								<select class="browser-default" id="inputSexo" name="inputSexo">
-									<option value="" selected> Selecionar Genero</option>
-									<option value="M">Masculino</option>
-									<option value="F">Femenino</option>
-									<option value="O">Otro</option>
-								</select>
-								<!-- <label>Seleccionar Genero</label> -->
-							</div>
-							<div class="input-field col s6">
-									<i class="material-icons prefix">home</i>
-									<input id="inputInstitucion" type="text" name="institucion">
-									<label for="inputInstitucion">Institución</label>
-	
-									<div id="buscarIntitucion">
-										<table class="striped" id="tablaInstitucion">
+		<div class="row center">
+			<div class="col s12 m6">
+			<div class="card-panel">
 						
-											<tbody>
-											</tbody>
-										</table>
-									</div>
-								</div>
-
-								<input id="" type="number" name="idEvento" value=9 hidden>
-
-						</div>
-
-						<!-- <input type="submit" value="Actualizar"> -->
-						<input class="btn" id='btnAdicionar' type="submit" value="ADICIONAR">
-
-						<!-- <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
-                            <i class="material-icons right">local_printshop</i>
-                        </button> -->
-					</form>
-					<a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a>
+				<h4>Evento a Controlar</h4>
+				<div class="collection">
+					<% eventos.forEach((evento, i)=>{ %>
+					<a href="/controla/evento/<%=evento.id%>" class="collection-item black-text"><%= evento.nombre%> <i class="material-icons left">event</i></a>
+					<% }) %>
 				</div>
-
-
-
-
 			</div>
+
+
+	</div>
+</div>
+		<%}%>
 		</div>
 
 
@@ -295,7 +311,8 @@
 
 <script>
 
-
+	$('#chipNuevoCargo').hide()
+	$('#chipNuevoInstitucion').hide()
 
 	$('#loader').hide();
 	$('#tablaMilitantes').hide();
@@ -370,7 +387,7 @@
 						url: "/asistencia/marcar",
 						data: {
 							idPersona: militante.id,
-							idEvento: 9,
+							idEvento: idEventoActual,
 							nombre: militante.nombres,
 							paterno: militante.paterno,
 							materno: militante.materno
@@ -433,6 +450,7 @@
 		$('#inputCargo').val($('#tr'+cargo).children()[1].innerHTML)
 		$('#inputIdCargo').val(cargo)
 		$('#tablaCargos').hide();
+		$('#chipNuevoCargo').hide()
 
 	}
 
@@ -440,6 +458,7 @@
 		var inputCargo = $('#inputCargo').val();
 
 		if (inputCargo.length != 0) {
+			$('#chipNuevoCargo').show()
 			$.ajax({
 				type: "POST",
 				url: "/controlador/cargos",
@@ -465,6 +484,7 @@
 								
 						// 	}
 						// });
+						$('#chipNuevoCargo').show()
 						$('#tablaCargos').hide();
 					} else {
 						listaCargos(response)
@@ -472,6 +492,7 @@
 				}
 			});
 		} else {
+			$('#chipNuevoCargo').hide()
 			// listaCargos([])
 			$('#tablaCargos').hide();
 
@@ -503,6 +524,7 @@
 		$('#inputInstitucion').val($('#trIns'+institucion).children()[1].innerHTML)
 		$('#inputIdInstitucion').val(institucion)
 		$('#tablaInstitucion').hide();
+		$('#chipNuevoInstitucion').hide()
 
 	}
 
@@ -510,6 +532,7 @@
 		var inputInstitucion = $('#inputInstitucion').val();
 
 		if (inputInstitucion.length != 0) {
+			$('#chipNuevoInstitucion').show();
 			$.ajax({
 				type: "POST",
 				url: "/controlador/instituciones",
@@ -535,6 +558,8 @@
 								
 						// 	}
 						// });
+						$('#chipNuevoInstitucion').show();
+						
 						$('#tablaInstitucion').hide();
 					} else {
 						listaInstitucion(response)
@@ -544,6 +569,7 @@
 		} else {
 			// listaInstitucion([])
 			$('#tablaInstitucion').hide();
+			$('#chipNuevoInstitucion').hide();
 
 		}
 

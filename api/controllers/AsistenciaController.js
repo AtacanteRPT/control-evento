@@ -302,7 +302,18 @@ module.exports = {
 
             var dataset = [];
             dataset = datoAsistencias.map(dato => dato.idPersona)
+            for (let index = 0; index < dataset.length; index++) {
+                
+                if(dataset[index].idCargo != null || dataset[index].idCargo !=999 ){
+                    var auxCargo = Cargo.find(dataset[index].idCargo)
+                    dataset.cargo = auxCargo[0];
+                }
+                if(dataset[index].idInstitucion != null || dataset[index].idCargo !=999 ){
+                    var auxInstitucion = Institucion.find(dataset[index].idInstitucion);
+                    dataset.institucion = auxInstitucion[0];
+                }
 
+            }
 
             console.log('DATASET', dataset)
             // You can define styles as json object
@@ -455,7 +466,19 @@ module.exports = {
                     width: 100 // <- width in pixels
                 },
                 institucion_listas_enviadas: {
+                    displayName: 'Institución en lista',
+                    headerStyle: styles.cellTitulo,
+                    cellStyle: styles.cellNormal, // <- Cell style
+                    width: 150 // <- width in pixels
+                },
+                institucion: {
                     displayName: 'Institución',
+                    headerStyle: styles.cellTitulo,
+                    cellStyle: styles.cellNormal, // <- Cell style
+                    width: 150 // <- width in pixels
+                },
+                cargo: {
+                    displayName: 'Cargo',
                     headerStyle: styles.cellTitulo,
                     cellStyle: styles.cellNormal, // <- Cell style
                     width: 150 // <- width in pixels
