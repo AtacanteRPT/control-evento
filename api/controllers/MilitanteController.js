@@ -7,6 +7,8 @@
 var moment = require('moment-timezone');
 const uuidv1 = require('uuid/v1');
 
+var uid = require('uid');
+
 module.exports = {
 
     nuevoNoMilitante: function (req, res) {
@@ -15,7 +17,9 @@ module.exports = {
         var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
         var hora = moment().tz("America/La_Paz").format();
         var auxMilitante = req.body;
-        auxMilitante.id = uuidv1();
+        // auxMilitante.id = uuidv1();
+        auxMilitante.id = uid(32);
+        sails.log('ID MIlitatne ', auxMilitante.id)
         auxMilitante.militancia = false;
         var paramIdEvento = req.param('idEvento');
         console.log('NUEVO', auxMilitante)
@@ -35,7 +39,7 @@ module.exports = {
                     credencial: false
                 }).exec(function (err, datoAsistencia) {
                         if (err) res.serverError(err);
-                        res.redirect('/controlador/index')
+                        res.redirect('/controla/evento/'+paramIdEvento)
                     });
             } else {
                 res.json({ msg: 'Error al Adicionar' })
