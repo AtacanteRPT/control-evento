@@ -26,7 +26,7 @@ module.exports = {
         },
         ci: {
             type: 'string',
-            columnType: 'varchar(20)',
+            columnType: 'UNIQUE varchar(20)',
         },
         fecha_nacimiento: {
             type: 'ref',

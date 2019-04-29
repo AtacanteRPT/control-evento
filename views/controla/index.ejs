@@ -83,7 +83,8 @@
 
 		</div>
 		<div class="row">
-			<form method="POST" id='formNuevo' action="/militante/nuevoNoMilitante" class="col s12">
+			<!-- <form method="POST" id='formNuevo' action="/militante/nuevoNoMilitante" class="col s12"> -->
+				<form id="formNuevoAsistente" class="col s12">
 				<div class="row">
 					<div class="input-field col s3">
 						<i class="material-icons prefix">card_membership</i>
@@ -125,14 +126,6 @@
 
 					<input id="inputIdCargo" type="number" name="idCargo" value="999" hidden>
 					<input id="inputIdInstitucion" type="number" name="idInstitucion" value="999" hidden>
-
-
-
-					<!-- <div class="input-field col s6">
-						<i class="material-icons prefix">textsms</i>
-						<input type="text" id="autocomplete-input" class="autocomplete">
-						<label for="autocomplete-input">Cargo</label>
-					</div> -->
 
 
 					<div class="input-field col s6">
@@ -179,14 +172,14 @@
 
 				</div>
 
-				<!-- <input type="submit" value="Actualizar"> -->
-				<input class="btn" id='btnAdicionar' type="submit" value="ADICIONAR">
-
+				<!-- <input class="btn" id='btnAdicionar' type="submit" value="ADICIONAR"> -->
+				
 				<!-- <button id="btnImprimir" class="btn waves-effect red darken-1" type="button">Imprimir
 					<i class="material-icons right">local_printshop</i>
 				</button> -->
 			</form>
-			<a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a>
+			<input id="btnAdicionarPersona" class="btn purple" type="button" value="ADICIONAR">
+			<!-- <a class="btn red" hidden id="btnEncontrado">ACTUALIZAR</a> -->
 		</div>
 
 	</div>
@@ -695,11 +688,11 @@
 
 		if (idMilitante != 0) {
 
-			form += '&sexo=' + $('#inputSexo').val();
-			form += '&asistencia=true'
+			// form += '&sexo=' + $('#inputSexo').val();
+			// form += '&asistencia=true'
 			console.log(form)
 			$.ajax({
-				type: "PATCH",
+				type: "POST",
 				url: "/militante/" + idMilitante,
 				data: form,
 				dataType: "json",
@@ -714,6 +707,55 @@
 		}
 
 	})
+
+
+	$('#btnAdicionarPersona').click(function () {
+		
+		var form = $('#formNuevoAsistente').serialize()
+
+	var formArray = $('#formNuevoAsistente').serializeArray();
+
+		var objetoForm = {};
+  for (var i = 0; i < formArray.length; i++){
+    objetoForm[formArray[i]['name']] = formArray[i]['value'];
+  }
+		// console.log('FORM JSON',objetoForm)
+		// $("inputCedula").prop('required',true);
+		// if (idMilitante != 0) {
+
+			// form += '&sexo=' + $('#inputSexo').val();
+			// form += '&asistencia=true'
+
+			if(objetoForm.ci.length ==0){
+				Materialize.toast('campo Ci no debe estar vacio', 3000)
+				return;
+			}
+			if(objetoForm.nombres.length==0){
+				Materialize.toast('campo NOMBRE no debe estar vacio', 3000)
+				return;
+			}
+			$('#loader').show();
+			console.log('ENTRA AQUI')
+			$.ajax({
+				type: "POST",
+				url: "/militante/nuevoNoMilitante" ,
+				data: form,
+				dataType: "json",
+				success: function (response) {
+					//if request if made successfully then the response represent the data
+					console.log('ADIONAR PERSONAS',response);
+					// auxMilitantes
+					$('#formNuevoAsistente')[0].reset();
+					Materialize.toast(response.msg, 3000)
+					$('#loader').hide();
+					// location.reload();
+
+				}
+			});
+		// }
+
+	})
+
 
 
 	$('#btnActualizar').click(function () {

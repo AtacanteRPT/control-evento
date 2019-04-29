@@ -39,7 +39,8 @@ module.exports = {
                     credencial: false
                 }).exec(function (err, datoAsistencia) {
                         if (err) res.serverError(err);
-                        res.redirect('/controla/evento/'+paramIdEvento)
+                        // res.redirect('/controla/evento/'+paramIdEvento)
+                        res.json({msg:'Se adiciono y marco asistencia'});
                     });
             } else {
                 res.json({ msg: 'Error al Adicionar' })
