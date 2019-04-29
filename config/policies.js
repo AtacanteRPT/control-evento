@@ -21,6 +21,9 @@ module.exports.policies = {
   ControladorController: {
     '*': ['DelegadoPolitica']
   },
+  ControlaController: {
+    '*': ['DelegadoPolitica']
+  },
   // MilitanteController: {
   //   '*': ['AdminDelegado'],
   //   // 'reporte':['AdminDelegado']
