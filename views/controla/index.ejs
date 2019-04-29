@@ -142,7 +142,7 @@
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">date_range</i>
-						<input id="inputFechaNac" type="date" name="fechaNac" class="datepicker">
+						<input id="inputfecha_nacimiento" type="date" name="fecha_nacimiento" class="datepicker">
 					</div>
 
 					<div class="input-field col s6">
@@ -203,10 +203,8 @@
 					<% }) %>
 				</div>
 			</div>
-
-
-	</div>
-</div>
+			</div>
+		</div>
 		<%}%>
 		</div>
 
@@ -249,7 +247,7 @@
 					</div>
 					<div class="input-field col s6">
 						<i class="material-icons prefix">date_range</i>
-						<input id="inputFechaNac2" type="date" name="fechaNac" class="datepicker">
+						<input id="inputfecha_nacimiento2" type="date" name="fecha_nacimiento" class="datepicker">
 					</div>
 
 					<div class="input-field col s6">
@@ -365,8 +363,8 @@
 		listaMilitantes.forEach(function (militante, index) {
 			$('#tablaMilitantes > tbody').append('<tr id="tr' + militante.id + '">' +
 				'<td>' + (index + 1) + '</td>' +
-				'<td>' + militante.nombres + '</td>' +
-				'<td>' + militante.institucion_min_trabajo + '</td>' +
+				'<td>' + militante.paterno +' '+ militante.materno +' '+ militante.nombres + '</td>' +
+				'<td>' + militante.cargo + '</td>' +
 				'<td>' + militante.ci + '</td>' +
 				'<td>' + militante.celular1 + '</td>' +
 				'<td>' + '<div class="switch"><label>NO<input id="voto' + militante.id + '" type="checkbox"><span class="lever"></span>SI</label></div>' + '</td>' +
@@ -429,7 +427,6 @@
 		}, this);
 	}
 
-
 	function listaCargos(listaCargos) {
 		$('#tablaCargos').show();
 
@@ -443,9 +440,7 @@
 
 		}, this);
 	}
-
 	
-
 	function elegirCargo(cargo) {
 
 		console.log('CARGO', $('#tr'+cargo).children()[1].innerHTML);
@@ -503,9 +498,6 @@
 
 	});
 	
-
-
-
 	function listaInstitucion(listaInstitucion) {
 		$('#tablaInstitucion').show();
 
@@ -587,7 +579,7 @@
 		var linea = $('#tr' + idMilitante).find('td')
 
 		$('#inputId2').val(idMilitante)
-		var auxFecha = new Date(militante[0].fechaNac)
+		var auxFecha = new Date(militante[0].fecha_nacimiento)
 
 
 		var dia = parseInt(auxFecha.getDate()) + 1;
@@ -614,7 +606,7 @@
 		// $('#inputSexo option[value='+militante[0].sexo+']').prop('selected','selected');
 
 		//$('#inputSexo option:contains(' + militante[0].sexo + ')').prop({selected: true});
-		$('#inputFechaNac2').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
+		$('#inputfecha_nacimiento2').val(auxFecha.getFullYear() + '-' + mes + '-' + dia)
 		console.log('FECHA:', auxFecha.getFullYear() + '-' + auxFecha.getMonth() + '-' + auxFecha.getDate())
 
 		$('#inputRem2').val(militante[0].remplazo)
