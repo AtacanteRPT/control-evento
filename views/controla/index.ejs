@@ -734,24 +734,46 @@
 				Materialize.toast('campo NOMBRE no debe estar vacio', 3000)
 				return;
 			}
-			$('#loader').show();
-			console.log('ENTRA AQUI')
-			$.ajax({
-				type: "POST",
-				url: "/militante/nuevoNoMilitante" ,
-				data: form,
-				dataType: "json",
-				success: function (response) {
-					//if request if made successfully then the response represent the data
-					console.log('ADIONAR PERSONAS',response);
-					// auxMilitantes
-					$('#formNuevoAsistente')[0].reset();
-					Materialize.toast(response.msg, 3000)
-					$('#loader').hide();
-					// location.reload();
 
-				}
-			});
+			if(objetoForm.ci != '0'){
+				$('#loader').show();
+				console.log('ENTRA AQUI')
+				$.ajax({
+					type: "POST",
+					url: "/militante/nuevoNoMilitante" ,
+					data: form,
+					dataType: "json",
+					success: function (response) {
+						//if request if made successfully then the response represent the data
+						console.log('ADIONAR PERSONAS',response);
+						// auxMilitantes
+						$('#formNuevoAsistente')[0].reset();
+						Materialize.toast(response.msg, 3000)
+						$('#loader').hide();
+						// location.reload();
+
+					}
+				});
+			}else{
+				$('#loader').show();
+				$.ajax({
+					type: "POST",
+					url: "/militante/nuevoSinCi" ,
+					data: form,
+					dataType: "json",
+					success: function (response) {
+						//if request if made successfully then the response represent the data
+						console.log('ADIONAR PERSONAS',response);
+						// auxMilitantes
+						$('#formNuevoAsistente')[0].reset();
+						Materialize.toast(response.msg, 3000)
+						$('#loader').hide();
+						// location.reload();
+
+					}
+				});
+			}
+		
 		// }
 
 	})

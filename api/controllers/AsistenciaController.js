@@ -305,11 +305,11 @@ module.exports = {
             for (let index = 0; index < dataset.length; index++) {
                 
                 if(dataset[index].idCargo != null || dataset[index].idCargo !=999 ){
-                    var auxCargo = Cargo.find(dataset[index].idCargo)
+                    var auxCargo = await Cargo.find(dataset[index].idCargo)
                     dataset.cargo = auxCargo[0];
                 }
                 if(dataset[index].idInstitucion != null || dataset[index].idCargo !=999 ){
-                    var auxInstitucion = Institucion.find(dataset[index].idInstitucion);
+                    var auxInstitucion = await Institucion.find(dataset[index].idInstitucion);
                     dataset.institucion = auxInstitucion[0];
                 }
 

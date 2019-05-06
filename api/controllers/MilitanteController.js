@@ -25,10 +25,10 @@ module.exports = {
         sails.log('ID MIlitatne ', auxMilitante.id)
         auxMilitante.militancia = false;
         var paramIdEvento = req.param('idEvento');
-        console.log('NUEVO', auxMilitante)
+        console.log('NUEVO', auxMilitante)  
 
         Personas.create(req.body).fetch().exec(function (err, datoPersona) {
-            if (err) res.serverError(err);
+            if (err) res.json({ msg: 'Error al Adicionar' });
 
             sails.log('datoPersona', req.body)
 
@@ -44,6 +44,49 @@ module.exports = {
                         if (err) res.serverError(err);
                         // res.redirect('/controla/evento/'+paramIdEvento)
                         res.json({msg:'Se adiciono y marco asistencia'});
+                    });
+            } else {
+                res.json({ msg: 'Error al Adicionar' })
+            }
+
+        });
+    },
+    nuevoSinCi: function (req, res) {
+
+        var auxNuevo = req.body;
+        var hoy = new Date();
+
+        var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
+        var hora = moment().tz("America/La_Paz").format();
+        var auxMilitante = req.body;
+
+        var arrayUuid = uuidv1().split('-');
+
+        // auxMilitante.id = uuidv1();
+        auxMilitante.id = arrayUuid[0]+arrayUuid[1]+arrayUuid[2]+arrayUuid[3]+arrayUuid[4]
+        sails.log('ID MIlitatne ', auxMilitante.id)
+        auxMilitante.militancia = false;
+        var paramIdEvento = req.param('idEvento');
+        console.log('NUEVO', auxMilitante)  
+        auxNuevo.ci= uid(10);
+        auxNuevo.estado = 404;
+        Personas.create(auxNuevo).fetch().exec(function (err, datoPersona) {
+            if (err) res.json({ msg: 'Error al Adicionar' });
+
+            sails.log('datoPersona', auxNuevo)
+
+            if (datoPersona != null) {
+
+                Asistencia.create({
+                    idEvento: paramIdEvento,
+                    idPersona: datoPersona.id,
+                    fecha: fecha,
+                    hora: hora,
+                    credencial: false
+                }).exec(function (err, datoAsistencia) {
+                        if (err) res.serverError(err);
+                        // res.redirect('/controla/evento/'+paramIdEvento)
+                        res.json({msg:'Se adiciono y marco asistencia, sin CI'});
                     });
             } else {
                 res.json({ msg: 'Error al Adicionar' })
