@@ -17,8 +17,11 @@ module.exports = {
         var fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
         var hora = moment().tz("America/La_Paz").format();
         var auxMilitante = req.body;
+
+        var arrayUuid = uuidv1().split('-');
+
         // auxMilitante.id = uuidv1();
-        auxMilitante.id = uid(32);
+        auxMilitante.id = arrayUuid[0]+arrayUuid[1]+arrayUuid[2]+arrayUuid[3]+arrayUuid[4]
         sails.log('ID MIlitatne ', auxMilitante.id)
         auxMilitante.militancia = false;
         var paramIdEvento = req.param('idEvento');
