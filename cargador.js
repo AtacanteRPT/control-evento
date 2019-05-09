@@ -35,16 +35,26 @@ async.eachSeries(files, function(file, callback) {
 
 
             console.log("Militante:", militante);
+            militante.militancia = false; 
+            rest.postJson('http://militantesmasipsp.com:9090/controlador/buscarMilitanteCi', {ci:militante.ci}).on('complete', function(data, response) {
+                
+                if(data.length ==0){
+                    rest.postJson('http://militantesmasipsp.com:9090/personas', militante).on('complete', function(data2, response2) {
+                        // handle response
+                        console.log('PERSONA CREADA')
+                        console.log("contador", contador++)
+                        cb(null);
+        
+                    });
+                }else{
 
-
-
-            rest.postJson('http://localhost:1337/militante', militante).on('complete', function(data2, response2) {
-                // handle response
-                console.log('PERSONA CREADA')
-                console.log("contador", contador++)
-                cb(null);
+                    console.log('**********PERSONA EXISTE *******', data[0])
+                }
 
             });
+            
+
+       
 
 
 
