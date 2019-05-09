@@ -110,6 +110,7 @@ module.exports = {
         var nombreCedula = req.param('ci');
         var paramIdEvento = req.param('idEvento')
         console.log('NOMBRE a BUSCAR CI:', nombreCedula)
+       
         var datoMilitantes = await Personas.find({ ci: nombreCedula });
         res.send(datoMilitantes)
 
