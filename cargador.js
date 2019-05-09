@@ -36,7 +36,7 @@ async.eachSeries(files, function(file, callback) {
 
             console.log("Militante:", militante);
             militante.militancia = false; 
-            rest.postJson('http://militantesmasipsp.com:9090/controlador/buscarMilitanteCi', {ci:militante.ci}).on('complete', function(data, response) {
+            rest.postJson('http://militantesmasipsp.com:9090/controlador/buscarMilitanteCi2', {ci:militante.ci}).on('complete', function(data, response) {
                 
                 if(data.length ==0){
                     rest.postJson('http://militantesmasipsp.com:9090/personas', militante).on('complete', function(data2, response2) {
